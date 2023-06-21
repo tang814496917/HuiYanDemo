@@ -1,0 +1,125 @@
+{
+    "version": "1.0.0",
+    "sdk_settings":
+    {
+        "silent_settings":
+        {
+            "app_id":"youtu_ios_0823",
+            "timeout_countdown_ms":0,
+            "check_eye_open":true,
+            "manual_trigger":false,
+            "net_request_timeout_ms":10000,
+            "action_security_level":1,
+            "same_tips_filter":false,
+            "result_api_url":"https://meetingtest.youtu.qq.com/actionliveapi/silencelive",
+            "action_default_seq":[5],
+            "stable_frame_num":0,
+            "action_frame_num":20,
+            "need_angle_detect_reflection":false,
+            "secondary_yaw_threshold": 30,
+            "secondary_pitch_threshold": 30,
+            "secondary_roll_threshold": 30,
+            "continuous_angle_num_threshold": 1,
+            "request_options":{
+                "best_image":true,
+                "do_live":true,
+                "do_mouth_detect":true,
+                "do_eye_detect":true
+            }
+        },
+        "action_settings":
+        {
+            "app_id":"youtu_ios_0823",
+            "timeout_countdown_ms":10000,
+            "action_security_level":1,
+            "result_api_url":"https://meetingtest.youtu.qq.com/actionliveapi/actionlive",
+            "action_default_seq":[1,2],
+            "video_bitrate":4194304,
+            "manual_trigger":false,
+            "same_tips_filter":false,
+            "stable_frame_num":0,
+            "action_frame_num":20,
+            "need_angle_detect_reflection":false,
+            "last_action_frame_num":3,
+            "secondary_yaw_threshold": 30,
+            "secondary_pitch_threshold": 30,
+            "secondary_roll_threshold": 30,
+            "continuous_angle_num_threshold": 1,
+            "request_options":{
+                "best_image":true,
+                "do_live":true,
+                "do_mouth_detect":true,
+                "do_eye_detect":true
+            }
+        },
+        "lipread_settings":
+        {
+            "app_id":"youtu_ios_0823",
+            "timeout_countdown_ms":10000,
+            "backend_proto_type": 0,
+            "config_api_url":"https://meetingtest.youtu.qq.com/fourliveapi/livegetfour",
+            "result_api_url":"https://meetingtest.youtu.qq.com/fourliveapi/fourlive",
+            "result_api_url_backup":"https://meetingtest.youtu.qq.com/youtu/openliveapi/person_live4",
+            "action_default_seq":[2,2],
+            "manual_trigger":false,
+            "force_pose_check":true,
+            "request_options_backup":
+            {
+                "business_id":"wx_default",
+                "person_id":"wx_default1",
+                "person_type":"youtu",
+                "req_type":"live"
+            }
+        },
+        "reflect_settings":
+        {
+            "app_id":"ios_reflect",
+            "timeout_countdown_ms":10000,
+            "check_eye_open":true,
+            "manual_trigger":false,
+            "reflect_security_level":2,
+            "force_pose_check":true,
+            "request_options":
+            {
+                "business_id":"wx_default",
+                "person_id":"wx_default1",
+                "person_type":"youtu",
+                "req_type":"live"
+            },
+            "backend_proto_type": 2,
+            "config_api_url":"https://meetingtest.youtu.qq.com/youtu/openliveapi/get_color_seq",
+            "result_api_url":"https://meetingtest.youtu.qq.com/youtu/openliveapi/person_live4",
+            "config_api_url_backup":"https://meetingtest.youtu.qq.com/reflectliveapi/getlivetype",
+            "result_api_url_backup":"https://meetingtest.youtu.qq.com/reflectliveapi/reflectlive"
+        },
+        "action+reflect_settings":
+        {
+            "app_id":"sdk_ios",
+            "timeout_countdown_ms":5000,
+            "check_eye_open":true,
+            "force_pose_check":false,
+            "action_frame_num":20,
+            "video_bitrate":2097152,
+            "video_iframeinterval":30,
+            "action_security_level":1,
+            "reflect_security_level":2,
+            "action_default_seq":[0],
+            "config_api_url":"https://sdk.faceid.qq.com/api/v1/reflect/getLiveType",
+            "result_api_url":"https://sdk.faceid.qq.com/api/v1/reflect/compare",
+            "control_config":"need_action_video=true",
+            "need_encrypt":true,
+            "enhance_encrypt_method":0,
+            "need_angle_detect_reflection":false,
+            "secondary_yaw_threshold": 30,
+            "secondary_pitch_threshold": 30,
+            "secondary_roll_threshold": 30,
+            "continuous_angle_num_threshold": 1,
+            "same_tips_filter":false,
+            "need_close_timeout":true,
+            "action_inner_settings":{
+                "min_gray_val":70
+            }
+        },
+        "need_network":true
+    }
+}

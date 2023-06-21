@@ -1,0 +1,6 @@
+framework module YtSDKKitFramework {
+  umbrella header "YtSDKKitFramework.h"
+
+  export *
+  module * { export * }
+}

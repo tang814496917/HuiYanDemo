@@ -1,0 +1,11 @@
+{
+    "version": "1.0.0",
+    "ui_basic_config":
+    {
+        "action+reflect_ui":
+        {
+            "max_retry_count":0
+        }
+    }
+    
+}

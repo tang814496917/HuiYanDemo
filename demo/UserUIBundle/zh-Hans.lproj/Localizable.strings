@@ -1,0 +1,52 @@
+/*
+  Localizable.strings
+  HuiYanSDK
+
+  Created by v_clvchen on 2020/8/28.
+  Copyright © 2020 tencent. All rights reserved.
+*/
+"txy_permission_lack_camera"="请赋予使用相机权限后再进行操作";
+
+//<!-- 慧眼SDK 内部文字--="
+//base string
+"txy_ok"="确定";
+"txy_cancel"="取消";
+"txy_yt_param_error"="参数错误";
+"txy_auth_error"="授权错误";
+"txy_init_error"="初始化失败";
+"txy_refuse_camera"="用户拒绝授权相机";
+"txy_user_cancel"="用户主动取消验证";
+"txy_not_change_app"="勿在核身的过程中切换应用";
+"txy_warning" = "注意";
+"txy_wait_for_result"="请等待结果...";
+"txy_detect_timeout"="检测超时";
+
+/**辅助提示*/
+"yt_face_act_screen_shaking"="请勿晃动";
+"txy_light_low" = "光线太暗";
+"txy_light_strong" = "光线太亮";
+/**引导提示*/
+"txy_face_preparing"="准备中";
+"yt_face_act_blink"="请眨眨眼";
+"yt_face_act_open_mouth"="请张张嘴";
+"yt_face_act_shake_head"="请摇摇头";
+"yt_face_act_nod_head"="请点点头";
+"yt_face_keep_pose"="验证中，请保持姿势不变";
+"yt_net_wait"="请等待结果..";
+/**错误提示*/
+"yt_face_closer"="请靠近一点";
+"yt_face_farer"="请离远一点";
+"yt_face_open_eye"="请勿闭眼";
+"yt_face_no_chin"="请勿遮挡下巴";
+"yt_face_no_mouth"="请勿遮挡嘴巴";
+"yt_face_no_nose"="请勿遮挡鼻子";
+"yt_face_no_left_eye"="请勿遮挡左眼";
+"yt_face_no_right_eye"="请勿遮挡右眼";
+"yt_face_too_many_face"="请确保框内只有一张人脸";
+"yt_face_no_left_face"="请勿遮挡左脸";
+"yt_face_no_right_face"="请勿遮挡右脸";
+"yt_face_no_face"="没有检测到人脸";
+"yt_face_incorrect_pose"="请摆正头部姿势";
+"yt_face_incomplete"="没有检测到完整人脸";
+"yt_face_ref_angle_detect_error"="变光环节人脸角度过大";
+"fl_close_mouth"="请勿张嘴";

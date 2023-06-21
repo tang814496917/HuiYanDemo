@@ -1,0 +1,6 @@
+framework module HuiYanSDK {
+  umbrella header "HuiYanSDK.h"
+
+  export *
+  module * { export * }
+}

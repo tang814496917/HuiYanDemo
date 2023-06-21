@@ -1,0 +1,74 @@
+/*
+  Localizable.strings
+  HuiYanSDK
+
+  Copyright © 2020 tencent. All rights reserved.
+*/
+"txy_permission_lack_camera"="請賦予使用相機權限後再進行操作";
+
+//<!-- 慧眼SDK 內部文字--="
+//base string
+"txy_ok"="確定";
+"txy_cancel"="HK";
+"txy_next"="下一步";
+"txy_exit"="退出驗證";
+"txy_auth_success"="驗證成功";
+"txy_auth_fail"="驗證失敗";
+"txy_net_work_error"="網絡異常";
+"txy_yt_param_error"="參數錯誤";
+"txy_auth_error"="授權錯誤";
+"txy_init_error"="初始化失敗";
+"txy_refuse_camera"="用戶拒絕授權相機";
+"txy_user_cancel"="用戶主動取消驗證";
+
+"txy_not_change_app"="勿在核身的過程中切換應用";
+"txy_warning" = "註意";
+
+/** 亮度 **/
+"txy_light_dark" = "光線強度：較暗";
+"txy_light_normal" = "光線強度：適中";
+"txy_light_bright" = "光線強度：較亮";
+"txy_light_name" = "光線";
+"txy_light_low" = "太暗";
+"txy_light_strong" = "太亮";
+"txy_light_to_normal" = "請調節至適中位置";
+
+"txy_face_preparing"="準備中...";
+"txy_wait_for_result"="請等待結果...";
+
+"txy_detect_timeout"="檢測超時";
+
+/** 基礎提示信息 **/
+"yt_verify_succeed"="識別通過";
+"yt_net_wait"="請等待結果...";
+"yt_verify_step_timeout"="人臉識別超時，請重試";
+"yt_cam_refocus"="攝像頭重新對焦";
+
+//live
+/** 人臉相關 **/
+"yt_face_keep_pose"="驗證中，請保持姿勢不變";
+"yt_face_closer"="請靠近一點";
+"yt_face_farer"="請離遠一點";
+"yt_face_not_in_rect"="請保持臉在檢測框內";
+"yt_face_no_face"="沒有檢測到人臉";
+"yt_face_incorrect_pose"="請保持正臉對準檢測框";
+"yt_face_incomplete"="請移動人臉到框內";
+"yt_face_no_left_face"="請勿遮擋左臉";
+"yt_face_no_right_face"="請勿遮擋右臉";
+"yt_face_no_chin"="請勿遮擋下巴";
+"yt_face_no_mouth"="請勿遮擋嘴巴";
+"yt_face_no_nose"="請勿遮擋鼻子";
+"yt_face_no_left_eye"="請勿遮擋左眼";
+"yt_face_no_right_eye"="請勿遮擋右眼";
+"yt_face_open_eye"="請睜眼";
+"yt_face_too_many_face"="請確保框內只有一張人臉";
+/** 動作相關 **/
+"yt_face_act_blink"="請眨眨眼";
+"yt_face_act_open_mouth"="請張張嘴";
+"yt_face_act_shake_head"="請搖搖頭";
+"yt_face_act_nod_head"="請點點頭";
+"yt_face_act_silence"="驗證中，請保持姿勢不變";
+"yt_face_act_screen_shaking"="請不要晃動";
+"yt_face_act_light_not_right"="光線不合適";
+/**反光相關 **/
+"yt_face_prepare_reflect"="屏幕即將閃爍，請保持不動";

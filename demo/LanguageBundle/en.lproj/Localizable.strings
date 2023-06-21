@@ -1,0 +1,71 @@
+/*
+  Localizable.strings
+  HuiYanSDK
+
+  Copyright © 2020 tencent. All rights reserved.
+*/
+"txy_permission_lack_camera"="Please enable FaceID to access your camera, network, and storage before detection";
+
+//<!-- 慧眼SDK 内部文字--="
+//base string
+"txy_ok"="Confirmed";
+"txy_cancel"="CancelEN";
+"txy_exit"="Exit validation";
+"txy_auth_success"="Verification Passed";
+"txy_auth_fail"="Verification Failed";
+"txy_net_work_error"="Network unreachable";
+"txy_yt_param_error"="Parameter exception";
+"txy_refuse_camera"="User refuses to license camera";
+"txy_user_cancel"="User cancels verification";
+
+"txy_not_change_app"="Please do not switch apps during verification.";
+
+/** 亮度 **/
+"txy_light_name" = "Lightness ";
+"txy_light_low" = "Too Dark";
+"txy_light_strong" = "Too Bright";
+"txy_light_to_normal" = "Please adjust to a suitable position";
+"txy_warning" = "Attention please！";
+
+"txy_face_preparing"="Preparing...";
+"txy_wait_for_result"="Please wait a moment for the result...";
+
+"txy_detect_timeout"="detection timeout";
+
+/** 基础提示信息 **/
+"yt_verify_succeed"="Identification passed";
+"yt_net_wait"="Please wait a moment for the result...";
+"yt_verify_step_timeout"="Face detection timed out, and recognition failed";
+"yt_cam_refocus"="Camera refocus";
+
+//live
+/** 人脸相关 **/
+"yt_face_keep_pose"="Verifying, please hold your position";
+"yt_face_closer"="Please come closer to the camera";
+"yt_face_farer"="Please stay away from the camera";
+"yt_face_not_in_rect"="Please keep your face within the detection frame";
+"yt_face_no_face"="No face detected";
+"yt_face_incorrect_pose"="Please keep your face within the detection frame";
+"yt_face_incomplete"="Please move your face into the detection frame";
+"yt_face_no_left_face"="Please do not cover the left face";
+"yt_face_no_right_face"="Please do not cover your right face";
+"yt_face_no_chin"="Please do not cover the chin";
+"yt_face_no_mouth"="Please do not cover your mouth";
+"yt_face_no_nose"="Please do not cover your nose";
+"yt_face_no_left_eye"="Please do not cover the left eye";
+"yt_face_no_right_eye"="Please do not cover the right eye";
+"yt_face_open_eye"="Please open your eyes";
+"yt_face_too_many_face"="Please make sure only one face in the detection frame";
+/** 动作相关 **/
+"yt_face_act_blink"="Please blink your eyes";
+"yt_face_act_open_mouth"="Please open your mouth";
+"yt_face_act_shake_head"="Please shake your head";
+"yt_face_act_nod_head"="Please nod";
+"yt_face_act_silence"="Verifying, please hold your posture";
+"yt_face_act_screen_shaking"="Please don't move";
+"yt_face_act_light_not_right"="Inappropriate lighting";
+/**反光相关 **/
+"yt_face_prepare_reflect"="The screen is about to flash. Please keep still";
+
+//TODO= Remove or change this placeholder text
+"hello_blank_fragment"="Hello blank fragment";
