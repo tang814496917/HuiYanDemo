@@ -41,7 +41,7 @@ static NSString *const HYIsUseBestFaceImage     =    @"HYIsUseBestFaceImage";
         if (![[NSUserDefaults standardUserDefaults] valueForKey:HYactref_ux_mode]){
             //第一次没数据时  默认数据
             self.actref_ux_mode = 0;
-            self.need_action_video = NO;
+            self.need_action_video = YES;
             self.action_data = @[@1,@2,@3,@4];
             self.action_random = NO;
             self.reflect_images_shorten_strategy = YES;
@@ -260,7 +260,14 @@ static NSString *const HYIsUseBestFaceImage     =    @"HYIsUseBestFaceImage";
                                                          error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                  encoding:NSUTF8StringEncoding];
-    return jsonString?:@"";
+    NSMutableString *responseString = [NSMutableString stringWithString:jsonString];
+        NSString *character = nil;
+        for (int i = 0; i < responseString.length; i ++) {
+            character = [responseString substringWithRange:NSMakeRange(i, 1)];
+            if ([character isEqualToString:@"\\"])
+                [responseString deleteCharactersInRange:NSMakeRange(i, 1)];
+        }
+    return responseString?:@"";
 }
 
 @end
