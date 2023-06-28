@@ -50,6 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)liveConfig;
 
+- (NSString *)tipsWithEvent:(HYAuthTipsEvent )event;
+
 @end
 
 NS_ASSUME_NONNULL_END

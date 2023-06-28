@@ -6,15 +6,11 @@
 	<dict>
 		<key>TXYOsAuthingViewController.nib/objects-11.0+.nib</key>
 		<data>
-		w+TGqv5joyNGw6QP2/SMhWyjAOc=
+		RTiTCKgCIpgQmzhTE67OVkVeCZo=
 		</data>
 		<key>TXYOsAuthingViewController.nib/runtime.nib</key>
 		<data>
-		G3NiHqjon5uMan+vyX3YTdFkJpI=
-		</data>
-		<key>excellent_close@2x.png</key>
-		<data>
-		Y3mLJUt8Z5kHHCqR6bG0bYNERDo=
+		fjxROt4fWB/aCsS9USeMupdu0GI=
 		</data>
 		<key>goodsVideoSound@2x.png</key>
 		<data>
@@ -26,7 +22,7 @@
 		</data>
 		<key>hyclose@2x.png</key>
 		<data>
-		LlT25tR5MjQTpwNAlcVZpgCGDkU=
+		Y3mLJUt8Z5kHHCqR6bG0bYNERDo=
 		</data>
 		<key>sound-outlined@2x.png</key>
 		<data>
@@ -67,33 +63,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			w+TGqv5joyNGw6QP2/SMhWyjAOc=
+			RTiTCKgCIpgQmzhTE67OVkVeCZo=
 			</data>
 			<key>hash2</key>
 			<data>
-			75JGDuDS/4BEETKXKB3cSu/wM+PVYAU0/n2rvhoc1bQ=
+			KrEfxRibyzhzFA3TUmK1ZDCBRbY6IgugoWi/i4ng/6E=
 			</data>
 		</dict>
 		<key>TXYOsAuthingViewController.nib/runtime.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			G3NiHqjon5uMan+vyX3YTdFkJpI=
+			fjxROt4fWB/aCsS9USeMupdu0GI=
 			</data>
 			<key>hash2</key>
 			<data>
-			So5qykyl5bYN3dMkNF+oqhW/6AcSWBnkoSNlICG3Ce4=
-			</data>
-		</dict>
-		<key>excellent_close@2x.png</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			Y3mLJUt8Z5kHHCqR6bG0bYNERDo=
-			</data>
-			<key>hash2</key>
-			<data>
-			30VzVIF4T8zqnRE0dinwzZOfC6i8ePK9siNjndB7S5Y=
+			5UgLwZ+aAsbZw81oMrF2XYs0cjHN+S5KNGzcBOARMD8=
 			</data>
 		</dict>
 		<key>goodsVideoSound@2x.png</key>
@@ -122,11 +107,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			LlT25tR5MjQTpwNAlcVZpgCGDkU=
+			Y3mLJUt8Z5kHHCqR6bG0bYNERDo=
 			</data>
 			<key>hash2</key>
 			<data>
-			mHBUuKBMNFw5UsXo2Wiv57e+GoalZTMGag1hsbSJW38=
+			30VzVIF4T8zqnRE0dinwzZOfC6i8ePK9siNjndB7S5Y=
 			</data>
 		</dict>
 		<key>sound-outlined@2x.png</key>

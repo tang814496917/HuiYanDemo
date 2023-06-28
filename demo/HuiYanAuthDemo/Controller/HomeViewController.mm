@@ -42,6 +42,8 @@
 
 @property (nonatomic, strong) UILabel *timeOutLab;
 
+@property (nonatomic, strong) UILabel *tipsLab;
+
 @property (nonatomic, strong) HYCircleProgressView *circleView;
 
 @property (nonatomic, strong) NSTimer *timer;
@@ -339,7 +341,10 @@
 }
 #pragma mark - HuiYanPrivateDelegate
 - (void)actionCallbackType:(HYAuthTipsEvent)actionType {
-    NSLog(@"thread:%@",[NSThread currentThread]);
+    NSString *tips = [[HYConfigManager shareInstance] tipsWithEvent:actionType];
+    if (tips) {
+        self.tipsLab.text = tips;
+    }
 }
 
 - (void)onAuthEvent:(HYAuthEvent)actionEvent {
@@ -410,6 +415,8 @@
             self.circleView = [[HYCircleProgressView alloc]initWithFrame:CGRectMake(0, 0, 278, 278)];
             self.circleView.progress = 0;
             [tmpView addSubview:self.circleView];
+        }else if (tmpView.tag == 10006){
+            self.tipsLab = (UILabel *)tmpView;
         }
     }
 }

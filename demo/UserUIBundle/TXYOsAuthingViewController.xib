@@ -52,7 +52,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <view tag="10005" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ADV-s7-K8J">
-                    <rect key="frame" x="68" y="233.33333333333337" width="278" height="278"/>
+                    <rect key="frame" x="68" y="148.33333333333337" width="278" height="278"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="278" id="IUq-7g-9nr"/>
@@ -60,14 +60,14 @@
                     </constraints>
                 </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="txy_prepareLight.png" translatesAutoresizingMaskIntoConstraints="NO" id="acR-Me-gCh" userLabel="stateImageView">
-                    <rect key="frame" x="86.666666666666686" y="251.66666666666663" width="241" height="241"/>
+                    <rect key="frame" x="86.666666666666686" y="166.66666666666663" width="241" height="241"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="241" id="AvF-ga-EBl"/>
                         <constraint firstAttribute="width" constant="241" id="MJd-TV-rxN"/>
                     </constraints>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l3L-cD-Lix" userLabel="contentView">
-                    <rect key="frame" x="86.666666666666686" y="251.66666666666663" width="241" height="241"/>
+                    <rect key="frame" x="86.666666666666686" y="166.66666666666663" width="241" height="241"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
                     <constraints>
@@ -75,8 +75,8 @@
                         <constraint firstAttribute="width" constant="241" id="wcB-De-JgF"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BI3-AC-YfR" userLabel="tipsLabel">
-                    <rect key="frame" x="20" y="100" width="374" height="33.666666666666657"/>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BI3-AC-YfR" userLabel="tipsLabel">
+                    <rect key="frame" x="20" y="60" width="374" height="33.666666666666657"/>
                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="28"/>
                     <color key="textColor" red="0.14901960780000001" green="0.15686274510000001" blue="0.17254901959999999" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -84,8 +84,17 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsFontSizeToFitWidth" value="YES"/>
                     </userDefinedRuntimeAttributes>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" tag="10006" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q3y-9Z-uQz" userLabel="tipsLabel">
+                    <rect key="frame" x="20" y="66" width="374" height="21.666666666666671"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                    <color key="textColor" red="0.11372549019607843" green="0.12156862745098039" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="adjustsFontSizeToFitWidth" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSg-5y-4RE" userLabel="timeoutLabel">
-                    <rect key="frame" x="20" y="136.66666666666666" width="374" height="25"/>
+                    <rect key="frame" x="20" y="96.666666666666671" width="374" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="jqh-GQ-41l"/>
                     </constraints>
@@ -93,8 +102,8 @@
                     <color key="textColor" red="0.38039215686274508" green="0.40392156862745099" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" tag="10004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="dcdcdcwecwe" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuF-BW-T6Y" userLabel="timeoutLabel">
-                    <rect key="frame" x="20" y="136.66666666666666" width="374" height="25"/>
+                <label opaque="NO" userInteractionEnabled="NO" tag="10004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PuF-BW-T6Y" userLabel="timeoutLabel">
+                    <rect key="frame" x="20" y="96.666666666666671" width="374" height="25"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="25" id="6GY-1h-hXz"/>
                     </constraints>
@@ -103,10 +112,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10003" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="正脸.png" translatesAutoresizingMaskIntoConstraints="NO" id="1yF-zU-fpo">
-                    <rect key="frame" x="157" y="547.66666666666663" width="100" height="100"/>
+                    <rect key="frame" x="172" y="462.66666666666669" width="70" height="70.000000000000057"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="100" id="VHY-lD-Uzy"/>
-                        <constraint firstAttribute="width" constant="100" id="pUe-Sc-H8l"/>
+                        <constraint firstAttribute="height" constant="70" id="VHY-lD-Uzy"/>
+                        <constraint firstAttribute="width" constant="70" id="pUe-Sc-H8l"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="活体检测" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAM-qu-cX0">
@@ -163,11 +172,13 @@
                 <constraint firstItem="pdE-wt-ZLS" firstAttribute="centerY" secondItem="Lzq-CW-hyi" secondAttribute="centerY" id="0UR-6I-3ft"/>
                 <constraint firstItem="xSg-5y-4RE" firstAttribute="centerX" secondItem="BI3-AC-YfR" secondAttribute="centerX" id="1ze-KV-bTi"/>
                 <constraint firstItem="xSg-5y-4RE" firstAttribute="leading" secondItem="BI3-AC-YfR" secondAttribute="leading" id="2rW-3R-NAd"/>
-                <constraint firstItem="BI3-AC-YfR" firstAttribute="top" secondItem="RaN-4b-dS6" secondAttribute="bottom" constant="100" id="7yP-Nq-EW2"/>
+                <constraint firstItem="Q3y-9Z-uQz" firstAttribute="centerY" secondItem="BI3-AC-YfR" secondAttribute="centerY" id="4RN-Ek-6M6"/>
+                <constraint firstItem="BI3-AC-YfR" firstAttribute="top" secondItem="RaN-4b-dS6" secondAttribute="bottom" constant="60" id="7yP-Nq-EW2"/>
                 <constraint firstAttribute="trailing" secondItem="jLY-Ey-G3a" secondAttribute="trailing" id="Cfn-Hs-IJz"/>
-                <constraint firstItem="acR-Me-gCh" firstAttribute="top" secondItem="xSg-5y-4RE" secondAttribute="bottom" constant="90" id="DrV-ht-dXG"/>
+                <constraint firstItem="acR-Me-gCh" firstAttribute="top" secondItem="xSg-5y-4RE" secondAttribute="bottom" constant="45" id="DrV-ht-dXG"/>
                 <constraint firstItem="BI3-AC-YfR" firstAttribute="leading" secondItem="ezJ-ot-qfn" secondAttribute="leading" constant="20" id="E2T-bb-aTy"/>
                 <constraint firstItem="pdE-wt-ZLS" firstAttribute="leading" secondItem="ezJ-ot-qfn" secondAttribute="leading" constant="10" id="ELD-W1-0mf"/>
+                <constraint firstItem="Q3y-9Z-uQz" firstAttribute="centerX" secondItem="BI3-AC-YfR" secondAttribute="centerX" id="J1i-WD-qUH"/>
                 <constraint firstItem="jLY-Ey-G3a" firstAttribute="top" secondItem="Xhe-5W-oyO" secondAttribute="top" id="KU0-zy-vIi"/>
                 <constraint firstItem="l3L-cD-Lix" firstAttribute="centerX" secondItem="acR-Me-gCh" secondAttribute="centerX" id="LOH-nx-ewn"/>
                 <constraint firstItem="RaN-4b-dS6" firstAttribute="leading" secondItem="Xhe-5W-oyO" secondAttribute="leading" id="PE1-Sw-14e"/>
@@ -179,6 +190,7 @@
                 <constraint firstItem="RaN-4b-dS6" firstAttribute="top" secondItem="ezJ-ot-qfn" secondAttribute="top" id="dOV-rq-HWO"/>
                 <constraint firstItem="PuF-BW-T6Y" firstAttribute="centerY" secondItem="xSg-5y-4RE" secondAttribute="centerY" id="eRx-c7-yf6"/>
                 <constraint firstItem="acR-Me-gCh" firstAttribute="centerX" secondItem="xSg-5y-4RE" secondAttribute="centerX" id="eTa-wR-ICc"/>
+                <constraint firstItem="Q3y-9Z-uQz" firstAttribute="leading" secondItem="BI3-AC-YfR" secondAttribute="leading" id="fQV-0z-s3O"/>
                 <constraint firstItem="Lzq-CW-hyi" firstAttribute="leading" secondItem="gAM-qu-cX0" secondAttribute="trailing" constant="20" id="hVF-Uj-fWP"/>
                 <constraint firstItem="gAM-qu-cX0" firstAttribute="centerY" secondItem="Lzq-CW-hyi" secondAttribute="centerY" id="hen-hS-wXr"/>
                 <constraint firstItem="ADV-s7-K8J" firstAttribute="centerX" secondItem="acR-Me-gCh" secondAttribute="centerX" id="hy8-Ka-bmi"/>
@@ -194,18 +206,11 @@
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="-399" y="60"/>
         </view>
-        <view contentMode="scaleToFill" id="wl3-Nf-ziZ">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <viewLayoutGuide key="safeArea" id="8r8-pi-Iq3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-            <point key="canvasLocation" x="297" y="7"/>
-        </view>
     </objects>
     <resources>
         <image name="goodsVideoSound.png" width="16" height="16"/>
         <image name="goodsVideoSound_open.png" width="16" height="16"/>
-        <image name="hyclose.png" width="12.5" height="12.5"/>
+        <image name="hyclose.png" width="13" height="13"/>
         <image name="txy_prepareLight.png" width="400" height="400"/>
         <image name="正脸.png" width="400" height="403"/>
         <systemColor name="systemBackgroundColor">
