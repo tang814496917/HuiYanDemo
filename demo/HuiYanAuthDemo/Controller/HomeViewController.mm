@@ -313,7 +313,10 @@
     __weak HomeViewController *weakSelf = self;
     self.timeOutLab.hidden = YES;
     self.alertCount ++;
-    if (self.alertCount>[HYConfigManager shareInstance].restartCount) return;
+    if (self.alertCount>[HYConfigManager shareInstance].restartCount) {
+        [self jumpResult:NO];
+        return;
+    }
         [HYToastAlertView showAlertViewWithbuttonClickedBlock:^(NSInteger index) {
             weakSelf.timeOutLab.hidden = NO;
             if (index == 0) {
