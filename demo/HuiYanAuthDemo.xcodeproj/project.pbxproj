@@ -59,6 +59,11 @@
 		35BDC1812A4350400048BBB8 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BDC17F2A43503F0048BBB8 /* MBProgressHUD.m */; };
 		35BDC1842A43519A0048BBB8 /* HYCommonToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BDC1832A43519A0048BBB8 /* HYCommonToast.m */; };
 		35BDC1862A4C2B5F0048BBB8 /* hyclose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC1852A4C2B5F0048BBB8 /* hyclose@2x.png */; };
+		35BDC18B2A4D5ECD0048BBB8 /* 请眨眼.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC1872A4D5ECA0048BBB8 /* 请眨眼.mp3 */; };
+		35BDC18C2A4D5ECD0048BBB8 /* 请张嘴.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC1882A4D5ECB0048BBB8 /* 请张嘴.mp3 */; };
+		35BDC18D2A4D5ECD0048BBB8 /* 请点点头.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC1892A4D5ECB0048BBB8 /* 请点点头.mp3 */; };
+		35BDC18E2A4D5ECD0048BBB8 /* 请摇摇头.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC18A2A4D5ECC0048BBB8 /* 请摇摇头.mp3 */; };
+		35BDC1902A4D5EF60048BBB8 /* BG.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC18F2A4D5EF60048BBB8 /* BG.mp3 */; };
 		35ED52902A3722150094D41F /* sdcs_test_android.lic in Resources */ = {isa = PBXBuildFile; fileRef = 35ED528E2A3722140094D41F /* sdcs_test_android.lic */; };
 		35ED52912A3722150094D41F /* licsence.lic in Resources */ = {isa = PBXBuildFile; fileRef = 35ED528F2A3722140094D41F /* licsence.lic */; };
 		603BF48829CC643E00AEF5DB /* face-tracker-v003.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 603BF48729CC643E00AEF5DB /* face-tracker-v003.bundle */; };
@@ -195,6 +200,11 @@
 		35BDC1822A43519A0048BBB8 /* HYCommonToast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYCommonToast.h; sourceTree = "<group>"; };
 		35BDC1832A43519A0048BBB8 /* HYCommonToast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HYCommonToast.m; sourceTree = "<group>"; };
 		35BDC1852A4C2B5F0048BBB8 /* hyclose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hyclose@2x.png"; sourceTree = "<group>"; };
+		35BDC1872A4D5ECA0048BBB8 /* 请眨眼.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "请眨眼.mp3"; sourceTree = "<group>"; };
+		35BDC1882A4D5ECB0048BBB8 /* 请张嘴.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "请张嘴.mp3"; sourceTree = "<group>"; };
+		35BDC1892A4D5ECB0048BBB8 /* 请点点头.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "请点点头.mp3"; sourceTree = "<group>"; };
+		35BDC18A2A4D5ECC0048BBB8 /* 请摇摇头.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "请摇摇头.mp3"; sourceTree = "<group>"; };
+		35BDC18F2A4D5EF60048BBB8 /* BG.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BG.mp3; sourceTree = "<group>"; };
 		35ED528E2A3722140094D41F /* sdcs_test_android.lic */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sdcs_test_android.lic; sourceTree = "<group>"; };
 		35ED528F2A3722140094D41F /* licsence.lic */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = licsence.lic; sourceTree = "<group>"; };
 		603BF48729CC643E00AEF5DB /* face-tracker-v003.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "face-tracker-v003.bundle"; sourceTree = "<group>"; };
@@ -515,6 +525,11 @@
 		C2B7081E2510C12800CE07D3 = {
 			isa = PBXGroup;
 			children = (
+				35BDC18F2A4D5EF60048BBB8 /* BG.mp3 */,
+				35BDC1892A4D5ECB0048BBB8 /* 请点点头.mp3 */,
+				35BDC18A2A4D5ECC0048BBB8 /* 请摇摇头.mp3 */,
+				35BDC1872A4D5ECA0048BBB8 /* 请眨眼.mp3 */,
+				35BDC1882A4D5ECB0048BBB8 /* 请张嘴.mp3 */,
 				357A30EB2A40B32500C5036E /* UserUIBundle.bundle */,
 				35ED528D2A3722140094D41F /* licsence */,
 				A7CF391927D0589A007B35B8 /* LanguageSrcBundle */,
@@ -702,16 +717,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35BDC18B2A4D5ECD0048BBB8 /* 请眨眼.mp3 in Resources */,
 				C2B7083A2510C12A00CE07D3 /* LaunchScreen.storyboard in Resources */,
 				C2B708372510C12A00CE07D3 /* Assets.xcassets in Resources */,
 				357A30A72A39AF3500C5036E /* README.md in Resources */,
 				603BF48829CC643E00AEF5DB /* face-tracker-v003.bundle in Resources */,
+				35BDC18C2A4D5ECD0048BBB8 /* 请张嘴.mp3 in Resources */,
 				35ED52912A3722150094D41F /* licsence.lic in Resources */,
+				35BDC18D2A4D5ECD0048BBB8 /* 请点点头.mp3 in Resources */,
 				C2B708352510C12800CE07D3 /* Main.storyboard in Resources */,
 				357A30EC2A40B32600C5036E /* UserUIBundle.bundle in Resources */,
 				C290366A271055D40010CB0E /* HuiYanSDKUI.bundle in Resources */,
 				357A309C2A39AF3500C5036E /* LICENSE in Resources */,
 				35ED52902A3722150094D41F /* sdcs_test_android.lic in Resources */,
+				35BDC1902A4D5EF60048BBB8 /* BG.mp3 in Resources */,
+				35BDC18E2A4D5ECD0048BBB8 /* 请摇摇头.mp3 in Resources */,
 				357A30712A3863C700C5036E /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -336,8 +336,11 @@
         }];
 }
 - (void)playVoice:(NSString *)str{
+    
     if (![HYConfigManager shareInstance].isNotMute) return;
-    [HYAudioPlayManager audioPlayClass].playContentStr = str;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [HYAudioPlayManager audioPlayClass].playContentStr = str;
+    });
 }
 #pragma mark - HuiYanPrivateDelegate
 - (void)actionCallbackType:(HYAuthTipsEvent)actionType {
@@ -351,11 +354,11 @@
     NSArray *animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"正脸"]];
     switch (actionEvent) {
         case HY_OPEN_MOUTH_CHECK:
-            [self playVoice:@"请张张嘴"];
+            [self playVoice:@"请张嘴"];
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"张嘴"]];
             break;
         case HY_BLINK_CHECK:
-            [self playVoice:@"请眨眨眼"];
+            [self playVoice:@"请眨眼"];
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"眨眼"]];
             break;
         case HY_NOD_HEAD_CHECK:
@@ -388,6 +391,8 @@
         self.circleView.progress = self.actionVerifiedCount/actionCount;
         self.actionVerifiedCount ++;
         self.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
+        if (![HYConfigManager shareInstance].isNotMute) return;
+        [HYAudioPlayManager audioPlayClass].playContentStr = @"BG";
     }
 }
 - (void)onMainViewCreate:(UIView *)authView {

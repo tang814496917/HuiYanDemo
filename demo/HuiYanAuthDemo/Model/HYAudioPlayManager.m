@@ -12,8 +12,6 @@
 
 @interface HYAudioPlayManager()
 
-@property (nonatomic, strong) AVAudioPlayer *movePlayer;
-
 @end
 
 @implementation HYAudioPlayManager
@@ -44,18 +42,16 @@
 
 
 #pragma mark - SET
+static SystemSoundID soundID = 0;
 -(void)setPlayContentStr:(NSString *)playContentStr {
+    AudioServicesDisposeSystemSoundID(soundID);
+    NSString *str = [[NSBundle mainBundle] pathForResource:playContentStr ofType:@"mp3"];
+    NSURL *url = [NSURL fileURLWithPath:str];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef _Nonnull)(url), &soundID);
+    AudioServicesPlayAlertSoundWithCompletion(soundID, ^{
+            NSLog(@"播放完成");
+    });
 
-    NSURL *url = [[NSBundle mainBundle] URLForResource:playContentStr withExtension:@"mp3"];
-    NSError *err;
-    self.movePlayer=[[AVAudioPlayer alloc] initWithContentsOfURL:url error:&err];
-    self.movePlayer.volume = 1.0;
-    [self.movePlayer prepareToPlay];
-    if(err!=nil) {
-        NSLog(@"move player init error:%@",err);
-    }else{
-        [self.movePlayer play];
-    }
 }
 
 @end
