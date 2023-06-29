@@ -389,11 +389,11 @@
         CGFloat actionCount = self.actionArray.count;
         if (actionCount<=0) actionCount = 1;
         self.circleView.progress = self.actionVerifiedCount/actionCount;
-        if (self.actionVerifiedCount<=0) return;
-        if (![HYConfigManager shareInstance].isNotMute) return;
-        [HYAudioPlayManager audioPlayClass].playContentStr = @"BG";
         self.actionVerifiedCount ++;
         self.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
+        if (self.actionVerifiedCount<=1) return;
+        if (![HYConfigManager shareInstance].isNotMute) return;
+        [HYAudioPlayManager audioPlayClass].playContentStr = @"BG";
     }
 }
 - (void)onMainViewCreate:(UIView *)authView {
