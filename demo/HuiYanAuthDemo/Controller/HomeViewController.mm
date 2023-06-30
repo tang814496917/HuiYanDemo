@@ -314,6 +314,10 @@
     __weak HomeViewController *weakSelf = self;
     self.timeOutLab.hidden = YES;
     self.alertCount ++;
+   __block BOOL isNotMute = [HYConfigManager shareInstance].isNotMute;
+    if (![HYConfigManager shareInstance].isNotMute){
+        [HYConfigManager shareInstance].isNotMute = YES;
+    }
     if (self.alertCount>[HYConfigManager shareInstance].restartCount) {
         [self.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
         [self jumpResult:NO];
@@ -321,6 +325,7 @@
     }
         [HYToastAlertView showAlertViewWithbuttonClickedBlock:^(NSInteger index) {
             weakSelf.timeOutLab.hidden = NO;
+            [HYConfigManager shareInstance].isNotMute = isNotMute;
             if (index == 0) {
                 if (weakSelf.cancelBtn){
                     [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
@@ -338,7 +343,7 @@
 //                    }
                     [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self startHuiYanAuth];
+                        [weakSelf startHuiYanAuth];
                     });
 //                }
             }
