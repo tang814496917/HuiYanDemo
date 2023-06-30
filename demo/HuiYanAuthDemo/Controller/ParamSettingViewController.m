@@ -104,12 +104,12 @@
             }else if (section == 3){
                 NSInteger  num = [HYConfigManager shareInstance].prepareTimeOut;
                 num = num - 1000;
-                if (num <= 1000) num = 1;
+                if (num <= 1000) num = 1000;
                 [HYConfigManager shareInstance].prepareTimeOut = num;
             }else if (section == 6){
                 NSInteger num = [HYConfigManager shareInstance].actionTimeoutMs;
                 num = num - 1000;
-                if (num <= 1000) num = 1;
+                if (num <= 1000) num = 1000;
                 [HYConfigManager shareInstance].actionTimeoutMs = num;
             }
             [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
