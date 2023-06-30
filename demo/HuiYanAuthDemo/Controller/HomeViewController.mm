@@ -313,7 +313,7 @@
     __weak HomeViewController *weakSelf = self;
     self.timeOutLab.hidden = YES;
     self.alertCount ++;
-    if (self.alertCount>[HYConfigManager shareInstance].restartCount) {
+    if (self.alertCount>=[HYConfigManager shareInstance].restartCount) {
         [self jumpResult:NO];
         return;
     }
