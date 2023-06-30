@@ -140,7 +140,6 @@
 - (void)push:(UIButton *)button{
     switch (button.tag) {
         case 100:
-            self.alertCount = 0;
             [self startHuiYanAuth];
             break;
         case 101:
@@ -287,6 +286,7 @@
         vc.reStartCalledBack = ^{
             [weakSelf startHuiYanAuth];
         };
+        self.alertCount = 0;
         [self.navigationController pushViewController:vc animated:YES];
     });
 }
@@ -432,6 +432,7 @@
             [tmpView addSubview:self.circleView];
         }else if (tmpView.tag == 10006){
             self.tipsLab = (UILabel *)tmpView;
+            self.tipsLab.text = @"准备中";
         }
     }
 }
