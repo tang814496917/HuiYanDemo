@@ -314,6 +314,7 @@
     self.timeOutLab.hidden = YES;
     self.alertCount ++;
     if (self.alertCount>=[HYConfigManager shareInstance].restartCount) {
+        [self.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
         [self jumpResult:NO];
         return;
     }
