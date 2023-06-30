@@ -140,6 +140,7 @@
 - (void)push:(UIButton *)button{
     switch (button.tag) {
         case 100:
+            self.alertCount = 0;
             [self startHuiYanAuth];
             break;
         case 101:
@@ -164,7 +165,6 @@
     }
     [self timer];
     [_timer setFireDate:[NSDate distantPast]];
-    self.alertCount = 0;
     self.actionType = HY_NONE;
     self.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
     self.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
@@ -237,6 +237,7 @@
     }];
 }
 - (void)liveCompare:(PrivateCompareResult *)compareResult{
+    if ([HYToastAlertView isShowing]) return;
     NSDictionary *params = @{
         @"platform":@(compareResult.platform),
         @"extraInfo":compareResult.extraInfo?:@"",
@@ -313,7 +314,7 @@
     __weak HomeViewController *weakSelf = self;
     self.timeOutLab.hidden = YES;
     self.alertCount ++;
-    if (self.alertCount>=[HYConfigManager shareInstance].restartCount) {
+    if (self.alertCount>[HYConfigManager shareInstance].restartCount) {
         [self.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
         [self jumpResult:NO];
         return;
@@ -325,17 +326,21 @@
                     [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
                 }
             }else{
-                if (weakSelf.alertCount >= [HYConfigManager shareInstance].restartCount){
-                    if (weakSelf.cancelBtn){
-                        [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-                    }
-                }else{
-                    if (type == 0) {
-                        weakSelf.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
-                    }else{
-                        weakSelf.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
-                    }
-                }
+//                if (weakSelf.alertCount >= [HYConfigManager shareInstance].restartCount){
+//                    if (weakSelf.cancelBtn){
+//                        [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+//                    }
+//                }else{
+//                    if (type == 0) {
+//                        weakSelf.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
+//                    }else{
+//                        weakSelf.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
+//                    }
+                    [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self startHuiYanAuth];
+                    });
+//                }
             }
         }];
 }

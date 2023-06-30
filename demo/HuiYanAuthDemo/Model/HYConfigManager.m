@@ -24,6 +24,7 @@ static NSString *const HYFailurePage      =    @"HYFailurePage";
 static NSString *const HYSuccessPageStr      =    @"HYSuccessPageStr";
 static NSString *const HYFailurePageStr      =    @"HYFailurePageStr";
 static NSString *const HYIsUseBestFaceImage     =    @"HYIsUseBestFaceImage";
+static NSString *const HYhostUrl     =    @"HYhostUrl";
 
 @implementation HYConfigManager
 
@@ -54,6 +55,7 @@ static NSString *const HYIsUseBestFaceImage     =    @"HYIsUseBestFaceImage";
             self.prepareTimeOut = 15000;
             self.restartCount = 5;
             self.isNeverTimeOut = YES;
+            self.hostUrl = @"https://biology-port.yz-intelligence.com:9978/";
         }
         self.privateConfig.authLicense = [[NSBundle mainBundle] pathForResource:@"licsence.lic" ofType:@""];
         self.privateConfig.riskLicense = [[NSBundle mainBundle] pathForResource:@"sdcs_test_android.lic" ofType:@""];
@@ -148,6 +150,11 @@ static NSString *const HYIsUseBestFaceImage     =    @"HYIsUseBestFaceImage";
     [[NSUserDefaults  standardUserDefaults] setValue:@(isUseBestFaceImage) forKey:HYIsUseBestFaceImage];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+- (void)setHostUrl:(NSString *)hostUrl
+{
+    [[NSUserDefaults  standardUserDefaults] setValue:hostUrl?:@"" forKey:HYhostUrl];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 #pragma mark ----------- getter -----------------
 - (NSInteger)restartCount
 {
@@ -228,6 +235,11 @@ static NSString *const HYIsUseBestFaceImage     =    @"HYIsUseBestFaceImage";
 {
     NSNumber *isUseBestFaceImage = [[NSUserDefaults standardUserDefaults] valueForKey:HYIsUseBestFaceImage];
     return [isUseBestFaceImage boolValue];
+}
+- (NSString *)hostUrl
+{
+    NSString *hostUrl = [[NSUserDefaults standardUserDefaults] valueForKey:HYhostUrl];
+    return hostUrl;
 }
 - (HuiYanPrivateConfig *)privateConfig
 {

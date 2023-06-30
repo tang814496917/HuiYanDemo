@@ -44,6 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL isUseBestFaceImage;
 
+@property (nonatomic, strong) NSString * hostUrl;
+
 @property (nonatomic, strong) HuiYanPrivateConfig *privateConfig;
 
 +(instancetype)shareInstance;

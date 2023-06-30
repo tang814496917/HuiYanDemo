@@ -8,8 +8,7 @@
 
 #import "HYNetWorkService.h"
 #import "AFNetworking.h"
-
-#define URL  @"https://biology-port.yz-intelligence.com:9978/"
+#import "HYConfigManager.h"
 @implementation HYNetWorkService
 + (void)postAction:(NSString *)action withParams:(NSDictionary *)params  completion:(void(^)(NSDictionary * result, NSError * _Nullable  errorStr))completion{
     
@@ -20,7 +19,7 @@
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     NSError *requestError = nil;
-    NSMutableURLRequest *request = [manager.requestSerializer requestWithMethod:@"POST" URLString:[NSString stringWithFormat:@"%@%@",URL,action] parameters:nil error:&requestError];
+    NSMutableURLRequest *request = [manager.requestSerializer requestWithMethod:@"POST" URLString:[NSString stringWithFormat:@"%@%@",[HYConfigManager shareInstance].hostUrl,action] parameters:nil error:&requestError];
     [request setHTTPBody:postData];
     
     NSURLSessionDataTask *dataTask = [manager.session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {

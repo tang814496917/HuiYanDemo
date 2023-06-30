@@ -27,6 +27,8 @@
 
 @property (nonatomic ,strong) UITextField * failureTF;
 
+@property (nonatomic ,strong) UITextField * hostUrlTF;
+
 @end
 
 @implementation ParamSettingViewController
@@ -61,7 +63,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     static NSString *headerViewId = @"SettingHeaderView";
-    if (section == 12){
+    if (section == 13){
         AlgorithmHeaderView *lastHeaderView = [[AlgorithmHeaderView alloc]initWithFrame:CGRectMake(12,0,self.view.bounds.size.width-24, 44)];
         lastHeaderView.titleLab.text = self.sectionTitleArray[section];
         return lastHeaderView;
@@ -127,7 +129,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section == 12) {
+    if (section == 13) {
         return 240;
     } else if (section == 9 ){
         if ([HYConfigManager shareInstance].successPage){
@@ -139,6 +141,8 @@
             return 85;
         }
         return 50;
+    }else if (section == 12){
+        return 85;
     }else{
         return 50;
     }
@@ -231,11 +235,12 @@
 }
 - (void)saveSetting{
     if ([HYConfigManager shareInstance].successPage){
-        if (self.successTF.text.length<=0){
+        NSString *successPage = self.successTF?self.successTF.text:[HYConfigManager shareInstance].successPageStr;
+        if (successPage.length<=0){
             [HYCommonToast showHudWithText:@"成功页面网址不能为空"];
             return;
         }
-        if ([self.successTF.text hasPrefix:@"http://"]||[self.successTF.text hasPrefix:@"https://"]){
+        if ([successPage hasPrefix:@"http://"]||[successPage hasPrefix:@"https://"]){
            
         }else{
             [HYCommonToast showHudWithText:@"成功页面网址不合法"];
@@ -243,16 +248,27 @@
         }
     }
     if ([HYConfigManager shareInstance].failurePage){
-        if (self.failureTF.text.length<=0){
+        NSString *failurePage = self.failureTF?self.failureTF.text:[HYConfigManager shareInstance].failurePageStr;
+        if (failurePage.length<=0){
             [HYCommonToast showHudWithText:@"失败页面网址不能为空"];
             return;
         }
-        if ([self.failureTF.text hasPrefix:@"http://"]||[self.failureTF.text hasPrefix:@"https://"]){
+        if ([failurePage hasPrefix:@"http://"]||[failurePage hasPrefix:@"https://"]){
          
         }else{
             [HYCommonToast showHudWithText:@"失败页面网址不合法"];
             return;
         }
+    }
+    NSString *hostUrl = self.hostUrlTF?self.hostUrlTF.text:[HYConfigManager shareInstance].hostUrl;
+    if (hostUrl.length<=0){
+        [HYCommonToast showHudWithText:@"接口地址不能为空"];
+        return;
+    }
+    if ([hostUrl hasPrefix:@"http://"]||[hostUrl hasPrefix:@"https://"]){
+    }else{
+        [HYCommonToast showHudWithText:@"接口地址不合法"];
+        return;
     }
     [HYConfigManager shareInstance].successPageStr = self.successTF.text;
     [HYConfigManager shareInstance].failurePageStr = self.failureTF.text;
@@ -347,6 +363,14 @@
                 [headerView.switchBtn setOn:[HYConfigManager shareInstance].isUseBestFaceImage];
             }
             break;
+        case 12:
+            {
+                headerView.type = SettingHeaderViewTypeSwitchAndText;
+                headerView.contentlab.text = [HYConfigManager shareInstance].hostUrl;
+                self.hostUrlTF = headerView.contentlab;
+                [headerView.switchBtn setHidden:YES];
+            }
+            break;
             
         default:
             break;
@@ -437,7 +461,7 @@
 - (NSArray *)sectionTitleArray
 {
     if(!_sectionTitleArray){
-        _sectionTitleArray = @[@"允许重试次数",@"动作准备阶段设置",@"永不超时",@"自定义超时时间",@"炫光活体",@"每组动作时间设置",@"动作时长",@"默认检测动作",@"提示声音",@"成功结果页面",@"失败结果页面",@"最佳人脸压缩",@"算法版本号："];
+        _sectionTitleArray = @[@"允许重试次数",@"动作准备阶段设置",@"永不超时",@"自定义超时时间",@"炫光活体",@"每组动作时间设置",@"动作时长",@"默认检测动作",@"提示声音",@"成功结果页面",@"失败结果页面",@"最佳人脸压缩",@"接口地址",@"算法版本号："];
     }
     return _sectionTitleArray;
 }
