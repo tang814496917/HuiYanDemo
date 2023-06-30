@@ -358,6 +358,7 @@
 }
 #pragma mark - HuiYanPrivateDelegate
 - (void)actionCallbackType:(HYAuthTipsEvent)actionType {
+    if ([HYToastAlertView isShowing]) return;
     NSString *tips = [[HYConfigManager shareInstance] tipsWithEvent:actionType];
     if (tips) {
         self.tipsLab.text = tips;
@@ -365,6 +366,7 @@
 }
 
 - (void)onAuthEvent:(HYAuthEvent)actionEvent {
+    if ([HYToastAlertView isShowing]) return;
     NSArray *animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"正脸"]];
     switch (actionEvent) {
         case HY_OPEN_MOUTH_CHECK:
