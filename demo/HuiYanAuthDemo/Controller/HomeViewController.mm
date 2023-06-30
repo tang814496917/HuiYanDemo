@@ -319,7 +319,9 @@
         [HYConfigManager shareInstance].isNotMute = YES;
     }
     if (self.alertCount>[HYConfigManager shareInstance].restartCount) {
-        [self.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+        if(self.cancelBtn){
+            [self.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+        }
         [self jumpResult:NO];
         return;
     }
