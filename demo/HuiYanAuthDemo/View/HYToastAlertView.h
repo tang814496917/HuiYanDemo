@@ -16,6 +16,9 @@ typedef void(^HandlerButtonClickBlock)(NSInteger index);
 + (void)showAlertViewWithbuttonClickedBlock:(nullable HandlerButtonClickBlock)buttonClickedBlock;
 
 + (BOOL)isShowing;
+
++ (void)createImg:(UIView *)bgView;
+
 @end
 
 NS_ASSUME_NONNULL_END

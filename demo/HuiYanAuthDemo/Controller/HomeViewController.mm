@@ -58,6 +58,8 @@
 
 @property (nonatomic, assign) NSInteger alertCount;
 
+@property (nonatomic, strong) UIView *authView;
+
 
 @end
 
@@ -325,6 +327,7 @@
         [self jumpResult:NO];
         return;
     }
+    [HYToastAlertView createImg:self.authView];
         [HYToastAlertView showAlertViewWithbuttonClickedBlock:^(NSInteger index) {
             weakSelf.timeOutLab.hidden = NO;
             [HYConfigManager shareInstance].isNotMute = isNotMute;
@@ -415,6 +418,7 @@
     }
 }
 - (void)onMainViewCreate:(UIView *)authView {
+    self.authView = authView;
     for (UIView *tmpView in [authView subviews]) {
         NSLog(@"tag:%ld",tmpView.tag);
         NSLog(@"tmpView:%@",tmpView);
@@ -453,6 +457,7 @@
     self.imageView = nil;
     self.timeOutLab = nil;
     self.circleView = nil;
+    self.authView = nil;
     [_timer invalidate];
     _timer = nil;
     self.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;

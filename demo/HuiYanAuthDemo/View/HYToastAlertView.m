@@ -22,6 +22,10 @@
 
 @property (nonatomic, copy) HandlerButtonClickBlock clickBlock;
 
+@property (nonatomic, strong) UIImageView *bgImageView;
+
+@property (nonatomic, strong) UIView *bgView;
+
 @end
 
 @implementation HYToastAlertView
@@ -53,13 +57,30 @@
     HYToastAlertView *alert = [HYToastAlertView shareInstance];
     return alert.superview?YES:NO;
 }
++ (void)createImg:(UIView *)bgView{
+    UIGraphicsBeginImageContextWithOptions(bgView.bounds.size, YES, [UIScreen mainScreen].scale);
+    [bgView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *allImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    HYToastAlertView *alert = [HYToastAlertView shareInstance];
+    alert.bgImageView.image = allImage;
+}
 - (void)setupView{
+    self.bgImageView = [UIImageView new];
+    self.bgView = [UIImageView new];
+    [self addSubview:self.bgImageView];
+    [self addSubview:self.bgView];
     [self addSubview:self.containerView];
     [self.containerView addSubview:self.titleLab];
     [self.containerView addSubview:self.contentLab];
     [self.containerView addSubview:self.cancelBtn];
     [self.containerView addSubview:self.restartBtn];
-    
+    [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+    }];
+    [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+    }];
     [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(280, 165));
         make.center.mas_equalTo(self);
@@ -88,14 +109,14 @@
     UIWindow *window = [[UIApplication sharedApplication].delegate window];
     [window addSubview:self];
     
-    self.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    self.bgView.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     [UIView animateWithDuration:0.3 animations:^{
-        self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        self.bgView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     }];
 }
 - (void)hide {
     
-    self.backgroundColor = [UIColor clearColor];
+    self.bgView.backgroundColor = [UIColor clearColor];
     [self removeFromSuperview];
     
 }
