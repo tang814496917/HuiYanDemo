@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		354526C32A5453F50023A2B1 /* 请正对屏幕.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 354526C22A5453F50023A2B1 /* 请正对屏幕.mp3 */; };
 		357A30702A3863C700C5036E /* HomeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 357A306E2A3863C700C5036E /* HomeViewController.mm */; };
 		357A30712A3863C700C5036E /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 357A306F2A3863C700C5036E /* HomeViewController.xib */; };
 		357A30742A3876CC00C5036E /* ParamSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 357A30732A3876CC00C5036E /* ParamSettingViewController.m */; };
@@ -102,6 +103,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		354526C22A5453F50023A2B1 /* 请正对屏幕.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "请正对屏幕.mp3"; sourceTree = "<group>"; };
 		357A306D2A3863C700C5036E /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		357A306E2A3863C700C5036E /* HomeViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HomeViewController.mm; sourceTree = "<group>"; };
 		357A306F2A3863C700C5036E /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
@@ -525,6 +527,7 @@
 		C2B7081E2510C12800CE07D3 = {
 			isa = PBXGroup;
 			children = (
+				354526C22A5453F50023A2B1 /* 请正对屏幕.mp3 */,
 				35BDC18F2A4D5EF60048BBB8 /* BG.mp3 */,
 				35BDC1892A4D5ECB0048BBB8 /* 请点点头.mp3 */,
 				35BDC18A2A4D5ECC0048BBB8 /* 请摇摇头.mp3 */,
@@ -727,6 +730,7 @@
 				35BDC18D2A4D5ECD0048BBB8 /* 请点点头.mp3 in Resources */,
 				C2B708352510C12800CE07D3 /* Main.storyboard in Resources */,
 				357A30EC2A40B32600C5036E /* UserUIBundle.bundle in Resources */,
+				354526C32A5453F50023A2B1 /* 请正对屏幕.mp3 in Resources */,
 				C290366A271055D40010CB0E /* HuiYanSDKUI.bundle in Resources */,
 				357A309C2A39AF3500C5036E /* LICENSE in Resources */,
 				35ED52902A3722150094D41F /* sdcs_test_android.lic in Resources */,

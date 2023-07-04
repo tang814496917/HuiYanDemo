@@ -149,7 +149,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 7 && [HYConfigManager shareInstance].action_data.count != 0){
+    if (section == 7 && ![HYConfigManager shareInstance].isDefaultAction){
         return self.rowTitleArray.count;
     }
     return 0;
@@ -324,7 +324,7 @@
         case 7:
             {
                 headerView.type = SettingHeaderViewTypeSwitch;
-                [headerView.switchBtn setOn:[HYConfigManager shareInstance].action_data.count==0?YES:NO animated:NO];
+                [headerView.switchBtn setOn:[HYConfigManager shareInstance].isDefaultAction animated:NO];
             }
             break;
         case 8:
@@ -385,11 +385,8 @@
             break;
         case 7:
         {
-            if (isOn){
-                [HYConfigManager shareInstance].action_data = @[];
-            }else{
-                [HYConfigManager shareInstance].action_data = @[@1,@2,@3,@4];
-            }
+            [HYConfigManager shareInstance].isDefaultAction = isOn;
+
         }
             break;
         case 8:

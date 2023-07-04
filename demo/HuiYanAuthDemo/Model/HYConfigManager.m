@@ -14,6 +14,7 @@ static NSString *const HYisNeverTimeOut      =    @"HYisNeverTimeOut";
 static NSString *const HYactref_ux_mode      =    @"HYactref_ux_mode";
 static NSString *const HYactionTimeoutMs      =    @"HYactionTimeoutMs";
 static NSString *const HYneed_action_video      =    @"HYneed_action_video";
+static NSString *const HYisDefaultAction      =    @"HYisDefaultAction";
 static NSString *const HYaction_data      =    @"HYaction_data";
 static NSString *const HYaction_random      =    @"HYaction_random";
 static NSString *const HYreflect_images_shorten_strategy      =    @"HYreflect_images_shorten_strategy";
@@ -48,14 +49,15 @@ static NSString *const HYhostUrl     =    @"HYhostUrl";
             self.reflect_images_shorten_strategy = YES;
             self.action_video_shorten_strategy = YES;
             self.isNotMute = NO;
-            self.successPage = YES;
-            self.failurePage = YES;
+            self.successPage = NO;
+            self.failurePage = NO;
             self.isUseBestFaceImage = YES;
             self.actionTimeoutMs = 15000;
             self.prepareTimeOut = 15000;
             self.restartCount = 5;
             self.isNeverTimeOut = YES;
             self.hostUrl = @"https://biology-port.yz-intelligence.com:9978/";
+            self.isDefaultAction = YES;
         }
         self.privateConfig.authLicense = [[NSBundle mainBundle] pathForResource:@"licsence.lic" ofType:@""];
         self.privateConfig.riskLicense = [[NSBundle mainBundle] pathForResource:@"sdcs_test_android.lic" ofType:@""];
@@ -97,6 +99,11 @@ static NSString *const HYhostUrl     =    @"HYhostUrl";
 - (void)setNeed_action_video:(BOOL)need_action_video
 {
     [[NSUserDefaults  standardUserDefaults] setValue:@(need_action_video) forKey:HYneed_action_video];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+- (void)setIsDefaultAction:(BOOL)isDefaultAction
+{
+    [[NSUserDefaults  standardUserDefaults] setValue:@(isDefaultAction) forKey:HYisDefaultAction];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 - (void)setAction_data:(NSArray *)action_data
@@ -186,6 +193,11 @@ static NSString *const HYhostUrl     =    @"HYhostUrl";
     NSNumber *need_action_video = [[NSUserDefaults standardUserDefaults] valueForKey:HYneed_action_video];
     return [need_action_video boolValue];
 }
+- (BOOL)isDefaultAction
+{
+    NSNumber *isDefaultAction = [[NSUserDefaults standardUserDefaults] valueForKey:HYisDefaultAction];
+    return [isDefaultAction boolValue];
+}
 - (NSArray *)action_data
 {
     NSArray *action_data = [[NSUserDefaults standardUserDefaults] valueForKey:HYaction_data];
@@ -256,7 +268,13 @@ static NSString *const HYhostUrl     =    @"HYhostUrl";
         
         NSString *need_action_videoStr = [NSString stringWithFormat:@"%@=%d",@"need_action_video",self.need_action_video];
         
-        NSString *action_dataStr = [NSString stringWithFormat:@"%@=%@",@"action_data",[self.action_data componentsJoinedByString:@","]];
+        NSString *action_dataStr;
+        if (self.action_data.count <= 0){
+            action_dataStr = @"action_data=5";
+        }else{
+            action_dataStr = [NSString stringWithFormat:@"%@=%@",@"action_data",[self.action_data componentsJoinedByString:@","]];
+        }
+       
         
         NSString *action_randomStr = [NSString stringWithFormat:@"%@=%d",@"action_random",self.action_random];
         
@@ -308,8 +326,6 @@ static NSString *const HYhostUrl     =    @"HYhostUrl";
         return @"请保证脸部无遮挡";
     }else if (event == TOO_MANY_FACE){
         return @"请确保框内只有一张人脸";
-    }else if (event == POSE_KEEP){
-        return @"验证中请保持姿势不变";
     }else if (event == ACT_SCREEN_SHAKING){
         return @"请勿晃动";
     }else{

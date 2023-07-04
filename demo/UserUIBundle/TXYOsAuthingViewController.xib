@@ -59,7 +59,7 @@
                         <constraint firstAttribute="width" constant="278" id="cLh-Tm-YM7"/>
                     </constraints>
                 </view>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="txy_prepareLight.png" translatesAutoresizingMaskIntoConstraints="NO" id="acR-Me-gCh" userLabel="stateImageView">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="10007" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="点头" translatesAutoresizingMaskIntoConstraints="NO" id="acR-Me-gCh" userLabel="stateImageView">
                     <rect key="frame" x="86.666666666666686" y="166.66666666666663" width="241" height="241"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="241" id="AvF-ga-EBl"/>
@@ -68,7 +68,7 @@
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l3L-cD-Lix" userLabel="contentView">
                     <rect key="frame" x="86.666666666666686" y="166.66666666666663" width="241" height="241"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="height" constant="241" id="8pw-EJ-uSS"/>
@@ -211,8 +211,8 @@
         <image name="goodsVideoSound.png" width="16" height="16"/>
         <image name="goodsVideoSound_open.png" width="16" height="16"/>
         <image name="hyclose.png" width="13" height="13"/>
-        <image name="txy_prepareLight.png" width="400" height="400"/>
         <image name="正脸.png" width="400" height="403"/>
+        <image name="点头" width="400" height="403"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

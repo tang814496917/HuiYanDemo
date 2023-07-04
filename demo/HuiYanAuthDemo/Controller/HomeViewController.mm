@@ -30,7 +30,7 @@
  
 }
 
-@property (nonatomic, assign) HYAuthEvent actionType;
+@property (nonatomic, assign) NSInteger actionType;
 
 @property (nonatomic, strong) UIButton *cancelBtn;
 
@@ -60,6 +60,9 @@
 
 @property (nonatomic, strong) UIView *authView;
 
+@property (nonatomic, strong) UIImageView *faceImageView;
+
+@property (nonatomic, assign) BOOL isFaceToScreen;
 
 @end
 
@@ -166,7 +169,7 @@
     }
     [self timer];
     [_timer setFireDate:[NSDate distantPast]];
-    self.actionType = HY_NONE;
+    self.actionType = -1;
     self.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
     self.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
     self.actionVerifiedCount = 0;
@@ -180,6 +183,10 @@
     } withFailCallback:^(int errCode, NSString * _Nonnull errMsg) {
 //        [HYCommonToast showHudWithText:[NSString stringWithFormat:@"SDK startGetAuthConfigData errCode:%d, errMsg:%@", errCode, errMsg]];
         NSLog(@"startGetAuthConfigData errCode:%d, errMsg:%@", errCode, errMsg);
+        [weakSelf.timer invalidate];
+        weakSelf.timer = nil;
+        self.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
+        self.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
     }];
 }
 - (void)getLightDataWith:(PrivateGetConfigResult *)getConfigResult {
@@ -189,7 +196,7 @@
         @"envRiskData":getConfigResult.envRiskData?:@"",
         @"requestId":[NSUUID UUID].UUIDString,
     }.mutableCopy;
-    if ([HYConfigManager shareInstance].action_data.count != 0) {
+    if (![HYConfigManager shareInstance].isDefaultAction) {
         [params setValue:[[HYConfigManager shareInstance] liveConfig] forKey:@"liveConfig"];
     }
     __weak  HomeViewController *weakSelf = self;
@@ -228,6 +235,8 @@
 
 - (void)startAuthWithLiveData:(PrivateLiveDataEntity *)liveDataEntity {
     __weak  HomeViewController *weakSelf = self;
+    self.isFaceToScreen = YES;
+    self.actionType = HY_NONE;
     [HuiYanPrivateApi startAuthByLiveData:liveDataEntity withSuccCallback:^(PrivateCompareResult * _Nonnull compareResult, NSString * _Nonnull videoPath) {
         //extraInfo 透传
         compareResult.extraInfo = liveDataEntity.extraInfo;
@@ -235,6 +244,10 @@
     } withFailCallback:^(int errCode, NSString * _Nonnull errMsg) {
         NSLog(@"errCode:%d, errMsg:%@", errCode, errMsg);
 //        [HYCommonToast showHudWithText:[NSString stringWithFormat:@"SDK errCode:%d, errMsg:%@", errCode, errMsg]];
+        [_timer invalidate];
+        _timer = nil;
+        self.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
+        self.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
     }];
 }
 - (void)liveCompare:(PrivateCompareResult *)compareResult{
@@ -293,23 +306,29 @@
     });
 }
 - (void)timeTick{
-    if ((self.actionType == HY_NONE)) {
-        if (self.prepareTimeOut <= 0){
-            [self showAlertViewWithType:0];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if ((self.actionType == -1)) {
+            if ([HYConfigManager shareInstance].isNeverTimeOut){
+                self.timeOutLab.text = @"";
+            }else{
+                self.timeOutLab.text = [NSString stringWithFormat:@"%lds",self.prepareTimeOut/1000];
+                if (self.prepareTimeOut == 0){
+                    [self showAlertViewWithType:0];
+                }else{
+                    self.prepareTimeOut = self.prepareTimeOut - 1000;
+                }
+            }
+        }else if (self.actionType == HY_OPEN_MOUTH_CHECK || self.actionType == HY_BLINK_CHECK || self.actionType == HY_NOD_HEAD_CHECK || self.actionType == HY_SHAKE_HEAD_CHECK){
+            self.timeOutLab.text = [NSString stringWithFormat:@"%lds",self.actionTimeoutMs/1000];
+            if (self.actionTimeoutMs == 0){
+                [self showAlertViewWithType:1];
+            }else{
+                self.actionTimeoutMs = self.actionTimeoutMs - 1000;
+            }
         }else{
-            self.prepareTimeOut = self.prepareTimeOut - 1000;
+            self.timeOutLab.text = @"";
         }
-        self.timeOutLab.text = [NSString stringWithFormat:@"%lds",self.prepareTimeOut/1000];
-    }else if (self.actionType == HY_OPEN_MOUTH_CHECK || self.actionType == HY_BLINK_CHECK || self.actionType == HY_NOD_HEAD_CHECK || self.actionType == HY_SHAKE_HEAD_CHECK){
-        if (self.actionTimeoutMs <= 0){
-            [self showAlertViewWithType:1];
-        }else{
-            self.actionTimeoutMs = self.actionTimeoutMs - 1000;
-        }
-        self.timeOutLab.text = [NSString stringWithFormat:@"%lds",self.actionTimeoutMs/1000];
-    }else{
-        self.timeOutLab.text = @"";
-    }
+    });
 }
 - (void)showAlertViewWithType:(NSInteger )type{
     if ([HYToastAlertView isShowing]) return;
@@ -368,6 +387,10 @@
     if (tips) {
         self.tipsLab.text = tips;
     }
+    if (actionType == NO_FACE && self.isFaceToScreen){
+        [self playVoice:@"请正对屏幕"];
+        self.isFaceToScreen = NO;
+    }
 }
 
 - (void)onAuthEvent:(HYAuthEvent)actionEvent {
@@ -376,22 +399,29 @@
     switch (actionEvent) {
         case HY_OPEN_MOUTH_CHECK:
             [self playVoice:@"请张嘴"];
+            self.imageView.hidden = NO;
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"张嘴"]];
             break;
         case HY_BLINK_CHECK:
             [self playVoice:@"请眨眼"];
+            self.imageView.hidden = NO;
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"眨眼"]];
             break;
         case HY_NOD_HEAD_CHECK:
             [self playVoice:@"请点点头"];
+            self.imageView.hidden = NO;
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"点头"]];
             break;
         case HY_SHAKE_HEAD_CHECK:
             [self playVoice:@"请摇摇头"];
+            self.imageView.hidden = NO;
             animationImages = @[[UIImage imageNamed:@"左"],[UIImage imageNamed:@"右"]];
             break;
         case HY_SILENCEN_CHECK:
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"正脸"]];
+            break;
+        case HY_REFLECT_CHECK:
+            self.imageView.hidden = YES;
             break;
         default:
             break;
@@ -436,6 +466,7 @@
             self.muteBtn.selected = ![HYConfigManager shareInstance].isNotMute;
         }else if (tmpView.tag == 10003){
             self.imageView = (UIImageView *)tmpView;
+            self.imageView.hidden = YES;
         }else if (tmpView.tag == 10004){
             self.timeOutLab = (UILabel *)tmpView;
         }else if (tmpView.tag == 10005){
@@ -443,11 +474,20 @@
             self.circleView = [[HYCircleProgressView alloc]initWithFrame:CGRectMake(0, 0, 278, 278)];
             self.circleView.progress = 0;
             [tmpView addSubview:self.circleView];
+     
         }else if (tmpView.tag == 10006){
             self.tipsLab = (UILabel *)tmpView;
             self.tipsLab.text = @"准备中";
+        }else if (tmpView.tag == 10007){
+            UIImageView *imageView = (UIImageView *)tmpView;
+            imageView.image = [UIImage new];
         }
     }
+    self.faceImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"face"]];
+    [authView addSubview:self.faceImageView];
+    [self.faceImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.mas_equalTo(self.circleView);
+    }];
 }
 
 - (void)onMainViewDestroy {
@@ -458,6 +498,7 @@
     self.timeOutLab = nil;
     self.circleView = nil;
     self.authView = nil;
+    self.faceImageView = nil;
     [_timer invalidate];
     _timer = nil;
     self.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;

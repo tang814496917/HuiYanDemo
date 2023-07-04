@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) BOOL need_action_video;
 
+@property (nonatomic, assign) BOOL isDefaultAction;
+
 @property (nonatomic, strong) NSArray * action_data;
 
 @property (nonatomic, assign) BOOL action_random;
