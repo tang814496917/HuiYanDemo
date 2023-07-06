@@ -469,6 +469,11 @@
             self.imageView.hidden = YES;
         }else if (tmpView.tag == 10004){
             self.timeOutLab = (UILabel *)tmpView;
+            if ([HYConfigManager shareInstance].isNeverTimeOut){
+                self.timeOutLab.text = @"";
+            }else{
+                self.timeOutLab.text = [NSString stringWithFormat:@"%lds",self.prepareTimeOut/1000];
+            }
         }else if (tmpView.tag == 10005){
             tmpView.backgroundColor = UIColor.clearColor;
             self.circleView = [[HYCircleProgressView alloc]initWithFrame:CGRectMake(0, 0, 278, 278)];
