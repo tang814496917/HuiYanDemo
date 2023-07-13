@@ -75,6 +75,7 @@
     [super viewDidLoad];
     [self setupView];
     [self checkNet];
+
     // Do any additional setup after loading the view from its nib.
 }
 -(void)viewWillAppear:(BOOL)animated {
@@ -418,20 +419,23 @@
     NSString *dataKey = @"";
     //准备中
     if (self.actionType == -1){
-        
+        dataKey = @"zhunbeizhong";
         //张嘴
     }else if (self.actionType == HY_OPEN_MOUTH_CHECK){
+        dataKey = @"zhangzui";
         //眨眼
     }else if (self.actionType == HY_BLINK_CHECK){
+        dataKey = @"zhayan";
         //点头
     }else if (self.actionType == HY_NOD_HEAD_CHECK){
+        dataKey = @"diantou";
         //摇头
     }else if (self.actionType == HY_SHAKE_HEAD_CHECK){
-        
+        dataKey = @"yaotou";
     }
     if (dataKey.length>0) {
         if ([reportDic valueForKey:dataKey]) {
-            NSMutableArray *array = [reportDic valueForKey:dataKey];
+            NSMutableArray *array = [NSMutableArray arrayWithArray:[reportDic valueForKey:dataKey]];
             [array addObject:dataDic];
             [reportDic setObject:array forKey:dataKey];
         }else{

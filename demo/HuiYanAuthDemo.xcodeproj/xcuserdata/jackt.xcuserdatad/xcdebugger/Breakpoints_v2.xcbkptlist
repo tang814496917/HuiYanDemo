@@ -50,8 +50,8 @@
             filePath = "HuiYanAuthDemo/Controller/HomeViewController.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
             landmarkName = "-timeTick"
             landmarkType = "7">
          </BreakpointContent>
@@ -66,8 +66,8 @@
             filePath = "HuiYanAuthDemo/Controller/HomeViewController.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
             landmarkName = "-timeTick"
             landmarkType = "7">
          </BreakpointContent>
@@ -82,8 +82,8 @@
             filePath = "HuiYanAuthDemo/Controller/HomeViewController.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
             landmarkName = "-timeTick"
             landmarkType = "7">
          </BreakpointContent>
@@ -98,8 +98,8 @@
             filePath = "HuiYanAuthDemo/Controller/HomeViewController.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "-startHuiYanAuth"
             landmarkType = "7">
          </BreakpointContent>
@@ -114,40 +114,40 @@
             filePath = "HuiYanAuthDemo/Controller/HomeViewController.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
             landmarkName = "-timeTick"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "EE74B4F9-A211-4423-BB57-5B430215E18B - 22695811123e0fbc"
+                  uuid = "EE74B4F9-A211-4423-BB57-5B430215E18B - 192ea0827657c6aa"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[HomeViewController timeTick]"
+                  symbolName = "__33-[HomeViewController jumpResult:]_block_invoke"
                   moduleName = "HuiYanAuthDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jackt/Desktop/HuiYanDemo/demo/HuiYanAuthDemo/Controller/HomeViewController.mm"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "309"
-                  endingLineNumber = "309"
-                  offsetFromSymbolStart = "32">
+                  startingLineNumber = "319"
+                  endingLineNumber = "319"
+                  offsetFromSymbolStart = "584">
                </Location>
                <Location
-                  uuid = "EE74B4F9-A211-4423-BB57-5B430215E18B - 1ffd21fa90d97fd4"
+                  uuid = "EE74B4F9-A211-4423-BB57-5B430215E18B - 192ea0827657c6aa"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "__30-[HomeViewController timeTick]_block_invoke"
+                  symbolName = "__33-[HomeViewController jumpResult:]_block_invoke"
                   moduleName = "HuiYanAuthDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/jackt/Desktop/HuiYanDemo/demo/HuiYanAuthDemo/Controller/HomeViewController.mm"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "310"
-                  endingLineNumber = "310"
-                  offsetFromSymbolStart = "32">
+                  startingLineNumber = "319"
+                  endingLineNumber = "319"
+                  offsetFromSymbolStart = "612">
                </Location>
             </Locations>
          </BreakpointContent>
