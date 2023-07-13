@@ -236,6 +236,7 @@
 - (void)startAuthWithLiveData:(PrivateLiveDataEntity *)liveDataEntity {
     __weak  HomeViewController *weakSelf = self;
     self.isFaceToScreen = YES;
+    self.actionType = HY_NONE;
     [HuiYanPrivateApi startAuthByLiveData:liveDataEntity withSuccCallback:^(PrivateCompareResult * _Nonnull compareResult, NSString * _Nonnull videoPath) {
         //extraInfo 透传
         compareResult.extraInfo = liveDataEntity.extraInfo;

@@ -1055,7 +1055,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = T86RPZK4TB;
+				DEVELOPMENT_TEAM = AMDW9HNWR9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1078,7 +1078,7 @@
 				);
 				MARKETING_VERSION = 1.0.9;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sccba.face.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sccba.face.demo1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1113,7 +1113,7 @@
 				);
 				MARKETING_VERSION = 1.0.9;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sccba.face.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sccba.face.demo2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
