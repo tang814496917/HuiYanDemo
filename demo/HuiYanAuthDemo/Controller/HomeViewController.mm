@@ -64,6 +64,9 @@
 
 @property (nonatomic, assign) BOOL isFaceToScreen;
 
+@property (nonatomic, strong) NSDictionary *reportDic;
+
+
 @end
 
 @implementation HomeViewController
@@ -169,6 +172,7 @@
     }
     [self timer];
     [_timer setFireDate:[NSDate distantPast]];
+    self.reportDic = @{};
     self.actionType = -1;
     self.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
     self.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
@@ -236,7 +240,6 @@
 - (void)startAuthWithLiveData:(PrivateLiveDataEntity *)liveDataEntity {
     __weak  HomeViewController *weakSelf = self;
     self.isFaceToScreen = YES;
-    self.actionType = HY_NONE;
     [HuiYanPrivateApi startAuthByLiveData:liveDataEntity withSuccCallback:^(PrivateCompareResult * _Nonnull compareResult, NSString * _Nonnull videoPath) {
         //extraInfo 透传
         compareResult.extraInfo = liveDataEntity.extraInfo;
@@ -304,6 +307,12 @@
         self.alertCount = 0;
         [self.navigationController pushViewController:vc animated:YES];
     });
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.reportDic
+                                                       options:0
+                                                         error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                 encoding:NSUTF8StringEncoding];
+    [HYCommonToast showHudWithText:jsonString];
 }
 - (void)timeTick{
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -385,14 +394,64 @@
     if ([HYToastAlertView isShowing]) return;
     NSString *tips = [[HYConfigManager shareInstance] tipsWithEvent:actionType];
     if (tips) {
-        self.tipsLab.text = tips;
+        self.tipsLab.text = [tips componentsSeparatedByString:@"/"].firstObject;
     }
     if (actionType == NO_FACE && self.isFaceToScreen){
         [self playVoice:@"请正对屏幕"];
         self.isFaceToScreen = NO;
     }
-}
 
+    [self createReportDataWithTips:tips];
+  
+}
+- (void)createReportDataWithTips:(NSString *)tips{
+    //准备中
+    if(!tips) return;
+    NSString *code = [tips componentsSeparatedByString:@"/"].lastObject;
+    NSString *text = [tips componentsSeparatedByString:@"/"].firstObject;
+    NSDictionary *dataDic = @{
+        @"code":code?code:@"",
+        @"text":text?text:@"",
+        @"time":[self getCurrentTime],
+    };
+    NSMutableDictionary *reportDic = self.reportDic.mutableCopy;
+    NSString *dataKey = @"";
+    //准备中
+    if (self.actionType == -1){
+        
+        //张嘴
+    }else if (self.actionType == HY_OPEN_MOUTH_CHECK){
+        //眨眼
+    }else if (self.actionType == HY_BLINK_CHECK){
+        //点头
+    }else if (self.actionType == HY_NOD_HEAD_CHECK){
+        //摇头
+    }else if (self.actionType == HY_SHAKE_HEAD_CHECK){
+        
+    }
+    if (dataKey.length>0) {
+        if ([reportDic valueForKey:dataKey]) {
+            NSMutableArray *array = [reportDic valueForKey:dataKey];
+            [array addObject:dataDic];
+            [reportDic setObject:array forKey:dataKey];
+        }else{
+            NSArray *array = @[dataDic];
+            [reportDic setObject:array forKey:dataKey];
+        }
+    }
+    self.reportDic = reportDic.copy;
+    
+}
+- (NSString *)getCurrentTime{
+    NSDate * date = [NSDate date];
+    NSTimeInterval sec = [date timeIntervalSinceNow];
+    NSDate * currentDate = [[NSDate alloc] initWithTimeIntervalSinceNow:sec];
+        
+        //设置时间输出格式：
+    NSDateFormatter * df = [[NSDateFormatter alloc] init ];
+    [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [df stringFromDate:currentDate];
+}
 - (void)onAuthEvent:(HYAuthEvent)actionEvent {
     if ([HYToastAlertView isShowing]) return;
     NSArray *animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"正脸"]];

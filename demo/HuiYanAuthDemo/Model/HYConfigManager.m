@@ -303,31 +303,31 @@ static NSString *const HYhostUrl     =    @"HYhostUrl";
 - (NSString *)tipsWithEvent:(HYAuthTipsEvent )event
 {
     if (event == ACT_OPEN_MOUTH){
-        return @"请张嘴";
+        return @"请张嘴/1000";
     }else if (event == ACT_BLINK){
-        return @"请眨眼";
+        return @"请眨眼/1001";
     }else if (event == ACT_NOD_HEAD){
-        return @"请点点头";
+        return @"请点点头/1002";
     }else if (event == ACT_SHAKE_HEAD){
-        return @"请摇摇头";
+        return @"请摇摇头/1003";
     }else if (event == LIGHT_TOO_LOW){
-        return @"请保证光线充足";
+        return @"请保证光线充足/1004";
     }else if (event == LIGHT_TOO_STRONG){
-        return @"请避免光线过强";
+        return @"请避免光线过强/1005";
     }else if (event == NO_FACE){
-        return @"请正对屏幕";
+        return @"请正对屏幕/1006";
     }else if (event == INCOMPLETE_FACE){
-        return @"请把脸移入框内";
+        return @"请把脸移入框内/1007";
     }else if (event == POSE_FARTHER ){
-        return @"请离远一点";
+        return @"请离远一点/1008";
     }else if (event == POSE_CLOSER){
-        return @"请离近一点";
+        return @"请离近一点/1009";
     }else if (event == NO_LEFT_FACE||event == NO_RIGHT_FACE||event == NO_CHINE||event == NO_MOUTH||event == NO_NOSE||event == NO_LEFT_EYE||event == NO_RIGHT_EYE){
-        return @"请保证脸部无遮挡";
+        return @"请保证脸部无遮挡/1010";
     }else if (event == TOO_MANY_FACE){
-        return @"请确保框内只有一张人脸";
+        return @"请确保框内只有一张人脸/1011";
     }else if (event == ACT_SCREEN_SHAKING){
-        return @"请勿晃动";
+        return @"请勿晃动/1012";
     }else{
         return nil;
     }
