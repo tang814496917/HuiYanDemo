@@ -156,6 +156,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) HYShowTimeOutMode showTimeOutMode;
 // 禁用黑夜模式
 @property (nonatomic, assign) BOOL disableDarkMode;
+// 开启核身时禁止系统录屏操作
+@property (nonatomic, assign) BOOL disableSystemRecordScreen;
+// longCheck模式图像质量压缩率 0.0-1.0 默认1
+@property (nonatomic, assign) CGFloat longCheckBestImageQuality;
+// 是否打开反光动画
+@property (nonatomic, assign) BOOL isOpenLightReflectAnim;
 
 - (BOOL)checkParamIsValidParam;
 @end

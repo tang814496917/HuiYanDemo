@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @interface YtSDKTool : NSObject
-#define T_FRAMEWORK_VERSION "1.1.15.97.1";
+#define T_FRAMEWORK_VERSION "1.1.15.101.1";
 /**
  获取YtSDKKitFrameworkTool*/
 +(NSString*) getFrameworkVersion;

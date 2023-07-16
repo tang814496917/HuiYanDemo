@@ -45,6 +45,10 @@ typedef NS_ENUM(NSInteger,HYSDKKitError) {
     HY_PREPARE_TIMEOUT                       = 300,
     // 耗时检测超时
     HY_LONGCHECK_TIMEOUT                     = 301,
+    // 请勿在核身过程中开启视频录制
+    HY_DONOT_ALLOW_RECORDING                 = 302,
+    // 请勿在核身过程中截屏
+    HY_DONOT_ALLOW_SCREENSHOTS               = 303,
 };
 
 typedef enum : NSUInteger {

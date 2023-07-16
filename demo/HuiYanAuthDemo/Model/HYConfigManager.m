@@ -60,7 +60,7 @@ static NSString *const HYhostUrl     =    @"HYhostUrl";
             self.isDefaultAction = YES;
         }
         self.privateConfig.authLicense = [[NSBundle mainBundle] pathForResource:@"licsence.lic" ofType:@""];
-        self.privateConfig.riskLicense = [[NSBundle mainBundle] pathForResource:@"sdcs_test_android.lic" ofType:@""];
+        self.privateConfig.riskLicense = [[NSBundle mainBundle] pathForResource:@"sdcs_test_androids.lic" ofType:@""];
         self.privateConfig.prepareTimeoutMs = 9999000;
         self.privateConfig.actionTimeoutMs = 9999000;
         self.privateConfig.userUIBundleName = @"UserUIBundle";

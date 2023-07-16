@@ -65,7 +65,7 @@
 		35BDC18D2A4D5ECD0048BBB8 /* 请点点头.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC1892A4D5ECB0048BBB8 /* 请点点头.mp3 */; };
 		35BDC18E2A4D5ECD0048BBB8 /* 请摇摇头.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC18A2A4D5ECC0048BBB8 /* 请摇摇头.mp3 */; };
 		35BDC1902A4D5EF60048BBB8 /* BG.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC18F2A4D5EF60048BBB8 /* BG.mp3 */; };
-		35ED52902A3722150094D41F /* sdcs_test_android.lic in Resources */ = {isa = PBXBuildFile; fileRef = 35ED528E2A3722140094D41F /* sdcs_test_android.lic */; };
+		35ED52902A3722150094D41F /* sdcs_test_androids.lic in Resources */ = {isa = PBXBuildFile; fileRef = 35ED528E2A3722140094D41F /* sdcs_test_androids.lic */; };
 		35ED52912A3722150094D41F /* licsence.lic in Resources */ = {isa = PBXBuildFile; fileRef = 35ED528F2A3722140094D41F /* licsence.lic */; };
 		603BF48829CC643E00AEF5DB /* face-tracker-v003.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 603BF48729CC643E00AEF5DB /* face-tracker-v003.bundle */; };
 		60D145E72924C09D0057A0EE /* YtSDKKitFrameworkTool.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60D145E62924C09D0057A0EE /* YtSDKKitFrameworkTool.framework */; };
@@ -207,7 +207,7 @@
 		35BDC1892A4D5ECB0048BBB8 /* 请点点头.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "请点点头.mp3"; sourceTree = "<group>"; };
 		35BDC18A2A4D5ECC0048BBB8 /* 请摇摇头.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "请摇摇头.mp3"; sourceTree = "<group>"; };
 		35BDC18F2A4D5EF60048BBB8 /* BG.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BG.mp3; sourceTree = "<group>"; };
-		35ED528E2A3722140094D41F /* sdcs_test_android.lic */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sdcs_test_android.lic; sourceTree = "<group>"; };
+		35ED528E2A3722140094D41F /* sdcs_test_androids.lic */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sdcs_test_androids.lic; sourceTree = "<group>"; };
 		35ED528F2A3722140094D41F /* licsence.lic */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = licsence.lic; sourceTree = "<group>"; };
 		603BF48729CC643E00AEF5DB /* face-tracker-v003.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = "face-tracker-v003.bundle"; sourceTree = "<group>"; };
 		60D145E62924C09D0057A0EE /* YtSDKKitFrameworkTool.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YtSDKKitFrameworkTool.framework; sourceTree = "<group>"; };
@@ -460,7 +460,7 @@
 		35ED528D2A3722140094D41F /* licsence */ = {
 			isa = PBXGroup;
 			children = (
-				35ED528E2A3722140094D41F /* sdcs_test_android.lic */,
+				35ED528E2A3722140094D41F /* sdcs_test_androids.lic */,
 				35ED528F2A3722140094D41F /* licsence.lic */,
 			);
 			name = licsence;
@@ -733,7 +733,7 @@
 				354526C32A5453F50023A2B1 /* 请正对屏幕.mp3 in Resources */,
 				C290366A271055D40010CB0E /* HuiYanSDKUI.bundle in Resources */,
 				357A309C2A39AF3500C5036E /* LICENSE in Resources */,
-				35ED52902A3722150094D41F /* sdcs_test_android.lic in Resources */,
+				35ED52902A3722150094D41F /* sdcs_test_androids.lic in Resources */,
 				35BDC1902A4D5EF60048BBB8 /* BG.mp3 in Resources */,
 				35BDC18E2A4D5ECD0048BBB8 /* 请摇摇头.mp3 in Resources */,
 				357A30712A3863C700C5036E /* HomeViewController.xib in Resources */,
@@ -1055,7 +1055,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = AMDW9HNWR9;
+				DEVELOPMENT_TEAM = B7CP8X36M8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1078,7 +1078,7 @@
 				);
 				MARKETING_VERSION = 1.0.9;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sccba.face.demo4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sccba.face.lgwtest2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1090,7 +1090,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 11;
-				DEVELOPMENT_TEAM = AMDW9HNWR9;
+				DEVELOPMENT_TEAM = B7CP8X36M8;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1113,7 +1113,7 @@
 				);
 				MARKETING_VERSION = 1.0.9;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.sccba.face.demo4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sccba.face.lgwtest2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
