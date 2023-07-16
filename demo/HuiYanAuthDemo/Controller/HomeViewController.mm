@@ -461,29 +461,35 @@
     NSArray *animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"正脸"]];
     switch (actionEvent) {
         case HY_OPEN_MOUTH_CHECK:
+            self.actionType = actionEvent;
             [self playVoice:@"请张嘴"];
             self.imageView.hidden = NO;
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"张嘴"]];
             break;
         case HY_BLINK_CHECK:
+            self.actionType = actionEvent;
             [self playVoice:@"请眨眼"];
             self.imageView.hidden = NO;
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"眨眼"]];
             break;
         case HY_NOD_HEAD_CHECK:
+            self.actionType = actionEvent;
             [self playVoice:@"请点点头"];
             self.imageView.hidden = NO;
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"点头"]];
             break;
         case HY_SHAKE_HEAD_CHECK:
+            self.actionType = actionEvent;
             [self playVoice:@"请摇摇头"];
             self.imageView.hidden = NO;
             animationImages = @[[UIImage imageNamed:@"左"],[UIImage imageNamed:@"右"]];
             break;
         case HY_SILENCEN_CHECK:
+            self.actionType = actionEvent;
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"正脸"]];
             break;
         case HY_REFLECT_CHECK:
+            self.actionType = actionEvent;
             self.imageView.hidden = YES;
             break;
         default:
@@ -498,7 +504,6 @@
             [self.imageView startAnimating];
         });
     }
-    self.actionType = actionEvent;
     if (self.actionType == HY_OPEN_MOUTH_CHECK || self.actionType == HY_BLINK_CHECK || self.actionType == HY_NOD_HEAD_CHECK || self.actionType == HY_SHAKE_HEAD_CHECK || self.actionType == HY_REFLECT_CHECK){
         CGFloat actionCount = self.actionArray.count;
         if (actionCount<=0) actionCount = 1;

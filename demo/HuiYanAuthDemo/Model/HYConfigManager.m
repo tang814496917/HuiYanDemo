@@ -67,6 +67,7 @@ static NSString *const HYhostUrl     =    @"HYhostUrl";
         self.privateConfig.isEncrypt = YES;
         self.privateConfig.showTimeOutMode = HYShowTimeOutMode_TIMEOUT_HIDDEN;
         self.privateConfig.authCircleErrorColor = 0xFFFFFF;
+        self.privateConfig.authCircleCorrectColor = 0xFFFFFF;
     }
     return self;
 }
@@ -263,6 +264,12 @@ static NSString *const HYhostUrl     =    @"HYhostUrl";
 - (NSString *)liveConfig
 {
     NSMutableDictionary *modeConfigDic = [NSMutableDictionary dictionary];
+    NSArray *randomArr = @[];
+    if (self.action_random){
+        randomArr = [self randomArr:self.action_data];
+    }else{
+        randomArr = self.action_data;
+    }
     for (int i = 0; i<4; i++) {
         NSString *actref_ux_modeStr = [NSString stringWithFormat:@"%@=%ld",@"actref_ux_mode",self.actref_ux_mode];
         
@@ -272,7 +279,8 @@ static NSString *const HYhostUrl     =    @"HYhostUrl";
         if (self.action_data.count <= 0){
             action_dataStr = @"action_data=5";
         }else{
-            action_dataStr = [NSString stringWithFormat:@"%@=%@",@"action_data",[self.action_data componentsJoinedByString:@","]];
+            
+            action_dataStr = [NSString stringWithFormat:@"%@=%@",@"action_data",[randomArr componentsJoinedByString:@","]];
         }
        
         
@@ -331,5 +339,17 @@ static NSString *const HYhostUrl     =    @"HYhostUrl";
     }else{
         return nil;
     }
+}
+- (NSArray *)randomArr:(NSArray *)arr{
+    NSMutableArray *newArr = [NSMutableArray new];
+    while (newArr.count != arr.count) {
+        //生成随机数
+        int x =arc4random() % arr.count;
+        id obj = arr[x];
+        if (![newArr containsObject:obj]) {
+            [newArr addObject:obj];
+        }
+    }
+    return newArr;
 }
 @end
