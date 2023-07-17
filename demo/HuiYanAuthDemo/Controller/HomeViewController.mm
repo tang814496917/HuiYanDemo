@@ -66,6 +66,8 @@
 
 @property (nonatomic, strong) NSDictionary *reportDic;
 
+@property (nonatomic, assign) NSInteger actionPlayCount;
+
 
 @end
 
@@ -172,6 +174,7 @@
         return;
     }
     [self timer];
+    self.actionPlayCount = 0;
     [_timer setFireDate:[NSDate distantPast]];
     self.reportDic = @{};
     self.actionType = -1;
@@ -338,7 +341,29 @@
         }else{
             self.timeOutLab.text = @"";
         }
+        BOOL  isPlay = self.actionPlayCount%3 == 0 ? YES : NO;
+        switch (self.actionType) {
+            case -1:
+             if (isPlay) [self playVoice:@"请正对屏幕"];
+                break;
+            case HY_OPEN_MOUTH_CHECK:
+                if (isPlay) [self playVoice:@"请张嘴"];
+                break;
+            case HY_BLINK_CHECK:
+                if (isPlay) [self playVoice:@"请眨眼"];
+                break;
+            case HY_NOD_HEAD_CHECK:
+                if (isPlay) [self playVoice:@"请点点头"];
+                break;
+            case HY_SHAKE_HEAD_CHECK:
+                if (isPlay) [self playVoice:@"请摇摇头"];
+                break;
+            default:
+                break;
+        };
+        self.actionPlayCount++;
     });
+ 
 }
 - (void)showAlertViewWithType:(NSInteger )type{
     if ([HYToastAlertView isShowing]) return;
@@ -397,11 +422,6 @@
     if (tips) {
         self.tipsLab.text = [tips componentsSeparatedByString:@"/"].firstObject;
     }
-    if (actionType == NO_FACE && self.isFaceToScreen){
-        [self playVoice:@"请正对屏幕"];
-        self.isFaceToScreen = NO;
-    }
-
     [self createReportDataWithTips:tips];
   
 }
@@ -462,23 +482,30 @@
     switch (actionEvent) {
         case HY_OPEN_MOUTH_CHECK:
             self.actionType = actionEvent;
-            [self playVoice:@"请张嘴"];
+            self.actionPlayCount = 0;
+            [_timer setFireDate:[NSDate distantPast]];
             self.imageView.hidden = NO;
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"张嘴"]];
             break;
         case HY_BLINK_CHECK:
+            self.actionPlayCount = 0;
+            [_timer setFireDate:[NSDate distantPast]];
             self.actionType = actionEvent;
             [self playVoice:@"请眨眼"];
             self.imageView.hidden = NO;
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"眨眼"]];
             break;
         case HY_NOD_HEAD_CHECK:
+            self.actionPlayCount = 0;
+            [_timer setFireDate:[NSDate distantPast]];
             self.actionType = actionEvent;
             [self playVoice:@"请点点头"];
             self.imageView.hidden = NO;
             animationImages = @[[UIImage imageNamed:@"正脸"],[UIImage imageNamed:@"点头"]];
             break;
         case HY_SHAKE_HEAD_CHECK:
+            self.actionPlayCount = 0;
+            [_timer setFireDate:[NSDate distantPast]];
             self.actionType = actionEvent;
             [self playVoice:@"请摇摇头"];
             self.imageView.hidden = NO;
