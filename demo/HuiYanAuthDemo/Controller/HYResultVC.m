@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"活体检测";
+    self.title = @"人脸识别";
     self.view.backgroundColor = UIColor.whiteColor;
     
         if(!self.isSuccess){
