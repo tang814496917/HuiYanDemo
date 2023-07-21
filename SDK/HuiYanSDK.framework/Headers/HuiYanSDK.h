@@ -16,5 +16,6 @@
 #import <HuiYanSDK/PrivateCompareResult.h>
 #import <HuiYanSDK/HuiYanScreenBrightnessApi.h>
 #import <HuiYanSDK/TXYHuiYanSDKCommDef.h>
+#import <HuiYanSDK/HuiYanCommonUtilApi.h>
 
 #endif /* HuiYanSDK_h */

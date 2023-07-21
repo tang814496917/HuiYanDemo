@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define TXY_HUIYAN_SDK_FRAMEWORK_VERSION @"v1.1.1.18"
+#define TXY_HUIYAN_SDK_FRAMEWORK_VERSION @"v1.1.1.23"
 //HuiYanPrivateApi @interface
 @interface HuiYanPrivateApi : NSObject
 /**

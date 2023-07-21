@@ -15,6 +15,7 @@
 #include <vector>
 #include <sstream>
 #include <math.h>
+#include "Far2NearData.h"
 #ifdef __ANDROID__
 #include <core.hpp>
 #include <resize.hpp>
@@ -229,6 +230,7 @@ public:
                         yt_tinycv::Mat3BGR &eyeImg, std::vector<float> &eyeShape,
                         yt_tinycv::Mat3BGR &mouthImg, std::vector<float> &mouthShape
                                       );
+    int get_actionVideoShortenStrategy();
     //主要动作执行完成，可以启动下一个步骤（目前主要用于动作+反光方案）
     /// 检测是否可以进入反光
     /// @return 返回是否可以进入反光状态
@@ -252,6 +254,12 @@ public:
     yt_tinycv::Mat3BGR get_MaxActionMouthImgMat(std::vector<float> & shape);
 
     bool isFrameListNull();
+    void initFar2NearParam(int width,int height,int count,float min_r,float max_r);
+    FaceFrameList GetFaceDistanceDetectData();
+    std::string getFaceDetectDistanceRectParam();
+    std::vector<int> GetLargeFace();
+    std::vector<int> GetSmallFace();
+    float GetFar2NearRectChangeScore();
 private:
     YTPoseLiveDetector* livenessdetector;
     std::string anchorWidths;

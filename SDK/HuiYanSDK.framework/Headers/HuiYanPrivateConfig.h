@@ -63,7 +63,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 //动作倒计时
 @property (nonatomic, assign) long actionTimeoutMs;
-
 /**
  这个设置了会使用自定义打包的UI bundle 文件，会加载里面这个名称的TXYOsAuthingViewController布局文件
  若是未找到TXYOsAuthingViewController 名称的布局文件，将会加载默认布局
