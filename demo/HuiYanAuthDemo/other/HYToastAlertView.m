@@ -8,6 +8,8 @@
 
 #import "HYToastAlertView.h"
 #import "Masonry.h"
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 @interface HYToastAlertView ()
 
 @property (nonatomic, strong) UIView *containerView;
@@ -75,34 +77,16 @@
     [self.containerView addSubview:self.contentLab];
     [self.containerView addSubview:self.cancelBtn];
     [self.containerView addSubview:self.restartBtn];
-    [self.bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
-    }];
-    [self.bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
-    }];
-    [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(280, 165));
-        make.center.mas_equalTo(self);
-    }];
-    [self.titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_offset(0);
-        make.top.mas_offset(24);
-        make.height.mas_offset(25);
-    }];
-    [self.contentLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_offset(11);
-        make.top.mas_equalTo(self.titleLab.mas_bottom).offset(8);
-        make.centerX.mas_offset(0);
-    }];
-    [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.mas_offset(0);
-        make.size.mas_equalTo(CGSizeMake(140, 50));
-    }];
-    [self.restartBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.bottom.mas_offset(0);
-        make.size.mas_equalTo(CGSizeMake(140, 50));
-    }];
+ 
+    self.bgImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    self.containerView.bounds = CGRectMake(0, 0, 280, 165);
+    self.containerView.center = self.bgView.center;
+    self.titleLab.frame = CGRectMake(0, 24, self.containerView.bounds.size.width, 25);
+    self.contentLab.frame = CGRectMake(11, 57, self.containerView.bounds.size.width-22,50);
+  
+    self.cancelBtn.frame = CGRectMake(0, 115, self.containerView.bounds.size.width/2.f,50);
+    self.restartBtn.frame = CGRectMake(self.containerView.bounds.size.width/2.f, 115, self.containerView.bounds.size.width/2.f,50);
 }
 - (void)show{
     if (self.superview) return;

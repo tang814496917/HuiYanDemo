@@ -7,7 +7,7 @@
 //
 
 #import "HYCommonToast.h"
-#import "MBProgressHUD.h"
+#import "HYMBProgressHUD.h"
 @implementation HYCommonToast
 
 + (void)showHudWithText:(NSString *)text
@@ -17,13 +17,13 @@
     }
     dispatch_async(dispatch_get_main_queue(), ^{
         UIWindow *window = [[UIApplication sharedApplication].delegate window];
-        [MBProgressHUD hideHUDForView:window animated:NO];
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
+        [HYMBProgressHUD hideHUDForView:window animated:NO];
+        HYMBProgressHUD *hud = [HYMBProgressHUD showHUDAddedTo:window animated:YES];
         
-        hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+        hud.bezelView.style = HYMBProgressHUDBackgroundStyleSolidColor;
         hud.bezelView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
         
-        hud.mode = MBProgressHUDModeText;
+        hud.mode = HYMBProgressHUDModeText;
         hud.label.text = text?:@"";
         hud.label.font = [UIFont systemFontOfSize:14];
         hud.label.textColor = [UIColor whiteColor];

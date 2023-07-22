@@ -44,13 +44,14 @@
 		357A30FE2A40C2F200C5036E /* sound-outlined@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 357A30FD2A40C2F200C5036E /* sound-outlined@2x.png */; };
 		359A08EC2A6C082C00FD5BBC /* HYConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 359A08E82A6C082C00FD5BBC /* HYConfigModel.m */; };
 		359A08ED2A6C082C00FD5BBC /* HYAuthApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 359A08EA2A6C082C00FD5BBC /* HYAuthApi.m */; };
+		359A09752A6C3BD200FD5BBC /* LCNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 359A09732A6C3BD100FD5BBC /* LCNetworking.m */; };
 		35BDC1682A4298240048BBB8 /* HYToastAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BDC1672A4298240048BBB8 /* HYToastAlertView.m */; };
 		35BDC16B2A42D8180048BBB8 /* HYCircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BDC16A2A42D8180048BBB8 /* HYCircleProgressView.m */; };
 		35BDC16E2A4310F90048BBB8 /* HYAudioPlayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BDC16D2A4310F80048BBB8 /* HYAudioPlayManager.m */; };
 		35BDC1712A43283C0048BBB8 /* HYResultVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BDC1702A43283C0048BBB8 /* HYResultVC.m */; };
 		35BDC1772A432A230048BBB8 /* goodsVideoSound@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC1762A432A230048BBB8 /* goodsVideoSound@2x.png */; };
 		35BDC17B2A432A370048BBB8 /* goodsVideoSound_open@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC17A2A432A370048BBB8 /* goodsVideoSound_open@2x.png */; };
-		35BDC1812A4350400048BBB8 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BDC17F2A43503F0048BBB8 /* MBProgressHUD.m */; };
+		35BDC1812A4350400048BBB8 /* HYMBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BDC17F2A43503F0048BBB8 /* HYMBProgressHUD.m */; };
 		35BDC1842A43519A0048BBB8 /* HYCommonToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BDC1832A43519A0048BBB8 /* HYCommonToast.m */; };
 		35BDC1862A4C2B5F0048BBB8 /* hyclose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC1852A4C2B5F0048BBB8 /* hyclose@2x.png */; };
 		35BDC18B2A4D5ECD0048BBB8 /* 请眨眼.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 35BDC1872A4D5ECA0048BBB8 /* 请眨眼.mp3 */; };
@@ -165,6 +166,8 @@
 		359A08E92A6C082C00FD5BBC /* HYAuthApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYAuthApi.h; sourceTree = "<group>"; };
 		359A08EA2A6C082C00FD5BBC /* HYAuthApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYAuthApi.m; sourceTree = "<group>"; };
 		359A08EB2A6C082C00FD5BBC /* HYConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYConfigModel.h; sourceTree = "<group>"; };
+		359A09732A6C3BD100FD5BBC /* LCNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCNetworking.m; sourceTree = "<group>"; };
+		359A09742A6C3BD200FD5BBC /* LCNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCNetworking.h; sourceTree = "<group>"; };
 		35BDC1662A4298240048BBB8 /* HYToastAlertView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYToastAlertView.h; sourceTree = "<group>"; };
 		35BDC1672A4298240048BBB8 /* HYToastAlertView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HYToastAlertView.m; sourceTree = "<group>"; };
 		35BDC1692A42D8180048BBB8 /* HYCircleProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYCircleProgressView.h; sourceTree = "<group>"; };
@@ -175,8 +178,8 @@
 		35BDC1702A43283C0048BBB8 /* HYResultVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HYResultVC.m; sourceTree = "<group>"; };
 		35BDC1762A432A230048BBB8 /* goodsVideoSound@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goodsVideoSound@2x.png"; sourceTree = "<group>"; };
 		35BDC17A2A432A370048BBB8 /* goodsVideoSound_open@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goodsVideoSound_open@2x.png"; sourceTree = "<group>"; };
-		35BDC17F2A43503F0048BBB8 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		35BDC1802A43503F0048BBB8 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		35BDC17F2A43503F0048BBB8 /* HYMBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HYMBProgressHUD.m; sourceTree = "<group>"; };
+		35BDC1802A43503F0048BBB8 /* HYMBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYMBProgressHUD.h; sourceTree = "<group>"; };
 		35BDC1822A43519A0048BBB8 /* HYCommonToast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HYCommonToast.h; sourceTree = "<group>"; };
 		35BDC1832A43519A0048BBB8 /* HYCommonToast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HYCommonToast.m; sourceTree = "<group>"; };
 		35BDC1852A4C2B5F0048BBB8 /* hyclose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hyclose@2x.png"; sourceTree = "<group>"; };
@@ -299,6 +302,8 @@
 		357A30682A38606B00C5036E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				357A30E82A407C0300C5036E /* HYNetWorkService.h */,
+				357A30E92A407C0300C5036E /* HYNetWorkService.m */,
 				357A30AE2A40472400C5036E /* HYConfigManager.h */,
 				357A30AF2A40472400C5036E /* HYConfigManager.m */,
 			);
@@ -396,8 +401,6 @@
 				359A08EA2A6C082C00FD5BBC /* HYAuthApi.m */,
 				359A08EB2A6C082C00FD5BBC /* HYConfigModel.h */,
 				359A08E82A6C082C00FD5BBC /* HYConfigModel.m */,
-				357A30E82A407C0300C5036E /* HYNetWorkService.h */,
-				357A30E92A407C0300C5036E /* HYNetWorkService.m */,
 				35BDC16C2A4310F80048BBB8 /* HYAudioPlayManager.h */,
 				35BDC16D2A4310F80048BBB8 /* HYAudioPlayManager.m */,
 				35BDC1822A43519A0048BBB8 /* HYCommonToast.h */,
@@ -406,6 +409,10 @@
 				35BDC1672A4298240048BBB8 /* HYToastAlertView.m */,
 				35BDC1692A42D8180048BBB8 /* HYCircleProgressView.h */,
 				35BDC16A2A42D8180048BBB8 /* HYCircleProgressView.m */,
+				359A09742A6C3BD200FD5BBC /* LCNetworking.h */,
+				359A09732A6C3BD100FD5BBC /* LCNetworking.m */,
+				35BDC17F2A43503F0048BBB8 /* HYMBProgressHUD.m */,
+				35BDC1802A43503F0048BBB8 /* HYMBProgressHUD.h */,
 			);
 			name = other;
 			path = HuiYanAuthDemo/other;
@@ -414,8 +421,6 @@
 		35BDC17E2A43503F0048BBB8 /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
-				35BDC17F2A43503F0048BBB8 /* MBProgressHUD.m */,
-				35BDC1802A43503F0048BBB8 /* MBProgressHUD.h */,
 			);
 			path = MBProgressHUD;
 			sourceTree = "<group>";
@@ -729,7 +734,7 @@
 				C2B708322510C12800CE07D3 /* ViewController.m in Sources */,
 				357A30A02A39AF3500C5036E /* MASConstraintMaker.m in Sources */,
 				357A307D2A39A68500C5036E /* SettingSelectedCell.m in Sources */,
-				35BDC1812A4350400048BBB8 /* MBProgressHUD.m in Sources */,
+				35BDC1812A4350400048BBB8 /* HYMBProgressHUD.m in Sources */,
 				35BDC1712A43283C0048BBB8 /* HYResultVC.m in Sources */,
 				357A309E2A39AF3500C5036E /* ViewController+MASAdditions.m in Sources */,
 				357A309D2A39AF3500C5036E /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
@@ -747,6 +752,7 @@
 				357A30A22A39AF3500C5036E /* NSArray+MASAdditions.m in Sources */,
 				357A30E22A407BA400C5036E /* AFURLResponseSerialization.m in Sources */,
 				357A30B02A40472400C5036E /* HYConfigManager.m in Sources */,
+				359A09752A6C3BD200FD5BBC /* LCNetworking.m in Sources */,
 				C2B7083D2510C12A00CE07D3 /* main.m in Sources */,
 				357A30E52A407BA400C5036E /* AFURLRequestSerialization.m in Sources */,
 				357A30EA2A407C0300C5036E /* HYNetWorkService.m in Sources */,

@@ -36,7 +36,7 @@
             self.prepareTimeOut = 15000;
             self.restartCount = 5;
             self.isNeverTimeOut = NO;
-            self.hostUrl = @"https://biology-port.yz-intelligence.com:9978";
+            self.hostUrl = @"https://biology-port.yz-intelligence.com:9978/";
             self.isDefaultAction = YES;
     }
     return self;

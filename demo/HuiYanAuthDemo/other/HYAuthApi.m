@@ -17,7 +17,7 @@
 #import "HYCircleProgressView.h"
 #import "HYAudioPlayManager.h"
 #import "HYConfigModel.h"
-#import "HYNetWorkService.h"
+#import "LCNetworking.h"
 #import "HYCommonToast.h"
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
@@ -77,7 +77,7 @@
 @implementation HYAuthApi
 
 + (void)startAuth:(HYConfigModel *)model
-         withSuccCallback:(HYResultSuccCallback)hYResultSuccCallback
+ withSuccCallback:(HYResultSuccCallback)hYResultSuccCallback
  withFailCallback:(HYResultFailCallback)hYResultFailCallback{
     
     HYAuthApi *authApi = [[HYAuthApi alloc]init];
@@ -89,20 +89,20 @@
 -(void)checkCamera{
     NSString *mediaType = AVMediaTypeVideo;//读取媒体类型
     [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
-       if (granted) {
-           NSLog(@"允许访问相机");
-           dispatch_async(dispatch_get_main_queue(), ^{
-              [self startHuiYanAuth];
-           });
-       } else {
-           NSLog(@"用户拒绝访问相机~");
-           [HYCommonToast showHudWithText:@"用户拒绝访问相机~"];
-           self->isHasCameraPermissions = NO;
-           dispatch_async(dispatch_get_main_queue(), ^{
-               NSLog(@"请开启访问相机权限!");
-               [HYCommonToast showHudWithText:@"请开启访问相机权限!"];
-           });
-       }
+        if (granted) {
+            NSLog(@"允许访问相机");
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self startHuiYanAuth];
+            });
+        } else {
+            NSLog(@"用户拒绝访问相机~");
+            [HYCommonToast showHudWithText:@"用户拒绝访问相机~"];
+            self->isHasCameraPermissions = NO;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"请开启访问相机权限!");
+                [HYCommonToast showHudWithText:@"请开启访问相机权限!"];
+            });
+        }
     }];
 }
 - (void)startHuiYanAuth {
@@ -131,7 +131,7 @@
     [HuiYanPrivateApi startGetAuthConfigData:privateConfig withSuccCallback:^(PrivateGetConfigResult * _Nonnull getConfigResult) {
         [weakSelf getLightDataWith:getConfigResult];
     } withFailCallback:^(int errCode, NSString * _Nonnull errMsg) {
-//        [HYCommonToast showHudWithText:[NSString stringWithFormat:@"SDK startGetAuthConfigData errCode:%d, errMsg:%@", errCode, errMsg]];
+        //        [HYCommonToast showHudWithText:[NSString stringWithFormat:@"SDK startGetAuthConfigData errCode:%d, errMsg:%@", errCode, errMsg]];
         NSLog(@"startGetAuthConfigData errCode:%d, errMsg:%@", errCode, errMsg);
         [weakSelf.timer invalidate];
         weakSelf.timer = nil;
@@ -151,11 +151,18 @@
     }
     __weak  HYAuthApi *weakSelf = self;
     self.prepareTimeOut = self.prepareTimeOut;
-    [HYNetWorkService postAction:@"getLiveType" withParams:params completion:^(NSDictionary * _Nonnull result, NSError * _Nullable error) {
+    [self postAction:@"getLiveType" withParams:params completion:^(NSDictionary * _Nonnull result, NSString * _Nullable error) {
         if (error) {
+            [_timer invalidate];
+            _timer = nil;
             NSLog(@"无网络");
             [HYCommonToast showHudWithText:@"网络出错"];
         }else{
+            if (result.allKeys.count == 0){
+                [_timer invalidate];
+                _timer = nil;
+                return;
+            }
             NSInteger errorCode = [[result valueForKey:@"errorCode"] integerValue];
             if (errorCode == 0) {
                 NSString *liveResult = [result valueForKey:@"liveResult"];
@@ -164,8 +171,8 @@
                 
                 NSData *jsonData = [liveResult dataUsingEncoding:NSUTF8StringEncoding];
                 NSDictionary *liveResultdic = [NSJSONSerialization JSONObjectWithData:jsonData
-                options:NSJSONReadingMutableContainers
-                error:nil];
+                                                                              options:NSJSONReadingMutableContainers
+                                                                                error:nil];
                 if (liveResultdic&&[liveResultdic objectForKey:@"actionData"]){
                     NSString *actionDataStr = [liveResultdic objectForKey:@"actionData"];
                     self.actionArray = [actionDataStr componentsSeparatedByString:@","];
@@ -176,6 +183,8 @@
                 liveDataEntity.extraInfo = extraInfo;
                 [weakSelf startAuthWithLiveData:liveDataEntity];
             }else{
+                [_timer invalidate];
+                _timer = nil;
                 [HYCommonToast showHudWithText:[NSString stringWithFormat:@"Net errorCode:%ld  errorMsg:%@",errorCode,[result valueForKey:@"errorMsg"]]];
             }
         }
@@ -192,7 +201,7 @@
         [weakSelf liveCompare:compareResult];
     } withFailCallback:^(int errCode, NSString * _Nonnull errMsg) {
         NSLog(@"errCode:%d, errMsg:%@", errCode, errMsg);
-//        [HYCommonToast showHudWithText:[NSString stringWithFormat:@"SDK errCode:%d, errMsg:%@", errCode, errMsg]];
+        //        [HYCommonToast showHudWithText:[NSString stringWithFormat:@"SDK errCode:%d, errMsg:%@", errCode, errMsg]];
         [_timer invalidate];
         _timer = nil;
         self.prepareTimeOut = self.model.prepareTimeOut;
@@ -209,7 +218,7 @@
         @"requestId":[NSUUID UUID].UUIDString,
     };
     __weak  HYAuthApi *weakSelf = self;
-    [HYNetWorkService postAction:@"liveCompare" withParams:params completion:^(NSDictionary * _Nonnull result, NSError * _Nullable error) {
+    [self postAction:@"liveCompare" withParams:params completion:^(NSDictionary * _Nonnull result, NSString * _Nullable error) {
         if (error) {
             [HYCommonToast showHudWithText:@"网络出错"];
             [weakSelf jumpResult:NO];
@@ -227,14 +236,6 @@
 }
 - (void)jumpResult:(BOOL)success{
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSDictionary *infoDic = @{
-            @"0":@"眨眼",
-            @"1":@"眨眼",
-            @"2":@"张嘴",
-            @"3":@"点头",
-            @"4":@"摇头",
-            @"5":@"正脸",
-        };
         if (success){
             if (self.resultSuccCallBack)
             {
@@ -245,7 +246,7 @@
                 self.resultFailCallBack(0, @"");
             }
         }
-
+        
         self.alertCount = 0;
     });
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.reportDic
@@ -281,7 +282,7 @@
         BOOL  isPlay = self.actionPlayCount%3 == 0 ? YES : NO;
         switch (self.actionType) {
             case -1:
-             if (isPlay) [self playVoice:@"请正对屏幕"];
+                if (isPlay) [self playVoice:@"请正对屏幕"];
                 break;
             case HY_OPEN_MOUTH_CHECK:
                 if (isPlay) [self playVoice:@"请张嘴"];
@@ -300,14 +301,14 @@
         };
         self.actionPlayCount++;
     });
- 
+    
 }
 - (void)showAlertViewWithType:(NSInteger )type{
     if ([HYToastAlertView isShowing]) return;
     __weak HYAuthApi *weakSelf = self;
     self.timeOutLab.hidden = YES;
     self.alertCount ++;
-   __block BOOL mute = self.model.mute;
+    __block BOOL mute = self.model.mute;
     if (!self.model.mute){
         self.model.mute = YES;
     }
@@ -318,22 +319,23 @@
         [self jumpResult:NO];
         return;
     }
+    [_timer setFireDate:[NSDate distantFuture]];
     [HYToastAlertView createImg:self.authView];
-        [HYToastAlertView showAlertViewWithbuttonClickedBlock:^(NSInteger index) {
-            weakSelf.timeOutLab.hidden = NO;
-            weakSelf.model.mute = mute;
-            if (index == 0) {
-                if (weakSelf.cancelBtn){
-                    [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-                }
-            }else{
-                    [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [weakSelf startHuiYanAuth];
-                    });
-//                }
+    [HYToastAlertView showAlertViewWithbuttonClickedBlock:^(NSInteger index) {
+        weakSelf.timeOutLab.hidden = NO;
+        weakSelf.model.mute = mute;
+        if (index == 0) {
+            if (weakSelf.cancelBtn){
+                [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
             }
-        }];
+        }else{
+            [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [weakSelf startHuiYanAuth];
+            });
+            //                }
+        }
+    }];
 }
 - (void)playVoice:(NSString *)str{
     
@@ -350,7 +352,7 @@
         self.tipsLab.text = [tips componentsSeparatedByString:@"/"].firstObject;
     }
     [self createReportDataWithTips:tips];
-  
+    
 }
 - (void)createReportDataWithTips:(NSString *)tips{
     //准备中
@@ -397,8 +399,8 @@
     NSDate * date = [NSDate date];
     NSTimeInterval sec = [date timeIntervalSinceNow];
     NSDate * currentDate = [[NSDate alloc] initWithTimeIntervalSinceNow:sec];
-        
-        //设置时间输出格式：
+    
+    //设置时间输出格式：
     NSDateFormatter * df = [[NSDateFormatter alloc] init ];
     [df setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     return [df stringFromDate:currentDate];
@@ -480,7 +482,7 @@
             UIButton *tmpBtn = (UIButton *)tmpView;
             [tmpBtn addTarget:self action:@selector(closeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         }else if (tmpView.tag == 10002){
-      // 静音
+            // 静音
             self.muteBtn = (UIButton *)tmpView;
             [self.muteBtn addTarget:self action:@selector(mute:) forControlEvents:UIControlEventTouchUpInside];
             [self.muteBtn setImage:[[UIImage imageNamed:@"goodsVideoSound_open"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
@@ -501,9 +503,9 @@
             self.circleView = [[HYCircleProgressView alloc]initWithFrame:CGRectMake(0, 0, 278, 278)];
             self.circleView.progress = 0;
             [tmpView addSubview:self.circleView];
-         
+            
             self.faceImageView.frame = CGRectMake((SCREEN_WIDTH-198)/2.f, 167, 198, 223);
-     
+            
         }else if (tmpView.tag == 10006){
             self.tipsLab = (UILabel *)tmpView;
             self.tipsLab.text = @"准备中";
@@ -515,7 +517,7 @@
     NSSet *set = [UIApplication sharedApplication].connectedScenes;
     UIWindowScene *windowScene = [set anyObject];
     UIStatusBarManager *statusBarManager = windowScene.statusBarManager;
-     
+    
     self.faceImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"face"]];
     self.faceImageView.frame = CGRectMake((SCREEN_WIDTH-198)/2, 167+statusBarManager.statusBarFrame.size.height, 198, 223);
     [authView addSubview:self.faceImageView];
@@ -570,7 +572,7 @@
     for (int i = 0; i<4; i++) {
         NSString *actref_ux_modeStr = [NSString stringWithFormat:@"%@=%ld",@"actref_ux_mode",self.model.actref_ux_mode];
         
-        NSString *need_action_videoStr = [NSString stringWithFormat:@"%@=%d",@"need_action_video",@(YES)];
+        NSString *need_action_videoStr = [NSString stringWithFormat:@"%@=%@",@"need_action_video",@(YES)];
         
         NSString *action_dataStr;
         if (self.model.action_data.count <= 0){
@@ -579,13 +581,13 @@
             
             action_dataStr = [NSString stringWithFormat:@"%@=%@",@"action_data",[randomArr componentsJoinedByString:@","]];
         }
-       
+        
         
         NSString *action_randomStr = [NSString stringWithFormat:@"%@=%d",@"action_random",self.model.action_random];
         
-        NSString *reflect_images_shorten_strategyStr = [NSString stringWithFormat:@"%@=%d",@"reflect_images_shorten_strategy",@(YES)];
+        NSString *reflect_images_shorten_strategyStr = [NSString stringWithFormat:@"%@=%@",@"reflect_images_shorten_strategy",@(YES)];
         
-        NSString *action_video_shorten_strategyStr = [NSString stringWithFormat:@"%@=%d",@"action_video_shorten_strategy",@(YES)];
+        NSString *action_video_shorten_strategyStr = [NSString stringWithFormat:@"%@=%@%@",@"action_video_shorten_strategy",@(YES)];
         
         NSString *configStr = [NSString stringWithFormat:@"%@&%@&%@&%@&%@&%@",actref_ux_modeStr,need_action_videoStr,action_dataStr,action_randomStr,reflect_images_shorten_strategyStr,action_video_shorten_strategyStr];
         [modeConfigDic setValue:configStr forKey:[@(i+1) stringValue]];
@@ -597,12 +599,12 @@
     NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                  encoding:NSUTF8StringEncoding];
     NSMutableString *responseString = [NSMutableString stringWithString:jsonString];
-        NSString *character = nil;
-        for (int i = 0; i < responseString.length; i ++) {
-            character = [responseString substringWithRange:NSMakeRange(i, 1)];
-            if ([character isEqualToString:@"\\"])
-                [responseString deleteCharactersInRange:NSMakeRange(i, 1)];
-        }
+    NSString *character = nil;
+    for (int i = 0; i < responseString.length; i ++) {
+        character = [responseString substringWithRange:NSMakeRange(i, 1)];
+        if ([character isEqualToString:@"\\"])
+            [responseString deleteCharactersInRange:NSMakeRange(i, 1)];
+    }
     return responseString?:@"";
 }
 - (NSString *)tipsWithEvent:(HYAuthTipsEvent )event
@@ -649,5 +651,16 @@
     }
     return newArr;
 }
-
+- (void)postAction:(NSString *)action withParams:(NSDictionary *)params  completion:(void(^)(NSDictionary * result, NSString * _Nullable  errorStr))completion{
+    [LCNetworking PostWithURL:[NSString stringWithFormat:@"%@%@",self.model.hostUrl,action] Params:params success:^(id responseObject) {
+            
+        if (completion){
+            completion(responseObject,nil);
+        }
+    } failure:^(NSString *error) {
+        if (completion){
+            completion(nil,error);
+        }
+    }];
+}
 @end
