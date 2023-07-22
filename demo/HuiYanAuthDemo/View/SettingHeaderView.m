@@ -8,7 +8,6 @@
 
 #import "SettingHeaderView.h"
 #import "Masonry.h"
-#import "HYCommonToast.h"
 
 @interface SettingHeaderView()<UITextFieldDelegate>
 

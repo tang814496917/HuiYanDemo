@@ -1,0 +1,6 @@
+framework module HYSDK {
+  umbrella header "HYSDK.h"
+
+  export *
+  module * { export * }
+}

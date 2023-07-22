@@ -12,7 +12,6 @@
 #import "SettingHeaderView.h"
 #import "AlgorithmHeaderView.h"
 #import "HYConfigManager.h"
-#import "HYCommonToast.h"
 @interface ParamSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -237,37 +236,37 @@
     if ([HYConfigManager shareInstance].successPage){
         NSString *successPage = self.successTF?self.successTF.text:[HYConfigManager shareInstance].successPageStr;
         if (successPage.length<=0){
-            [HYCommonToast showHudWithText:@"成功页面网址不能为空"];
+//            [HYCommonToast showHudWithText:@"成功页面网址不能为空"];
             return;
         }
         if ([successPage hasPrefix:@"http://"]||[successPage hasPrefix:@"https://"]){
            
         }else{
-            [HYCommonToast showHudWithText:@"成功页面网址不合法"];
+//            [HYCommonToast showHudWithText:@"成功页面网址不合法"];
             return;
         }
     }
     if ([HYConfigManager shareInstance].failurePage){
         NSString *failurePage = self.failureTF?self.failureTF.text:[HYConfigManager shareInstance].failurePageStr;
         if (failurePage.length<=0){
-            [HYCommonToast showHudWithText:@"失败页面网址不能为空"];
+//            [HYCommonToast showHudWithText:@"失败页面网址不能为空"];
             return;
         }
         if ([failurePage hasPrefix:@"http://"]||[failurePage hasPrefix:@"https://"]){
          
         }else{
-            [HYCommonToast showHudWithText:@"失败页面网址不合法"];
+//            [HYCommonToast showHudWithText:@"失败页面网址不合法"];
             return;
         }
     }
     NSString *hostUrl = self.hostUrlTF?self.hostUrlTF.text:[HYConfigManager shareInstance].hostUrl;
     if (hostUrl.length<=0){
-        [HYCommonToast showHudWithText:@"接口地址不能为空"];
+//        [HYCommonToast showHudWithText:@"接口地址不能为空"];
         return;
     }
     if ([hostUrl hasPrefix:@"http://"]||[hostUrl hasPrefix:@"https://"]){
     }else{
-        [HYCommonToast showHudWithText:@"接口地址不合法"];
+//        [HYCommonToast showHudWithText:@"接口地址不合法"];
         return;
     }
     [HYConfigManager shareInstance].successPageStr = self.successTF.text;

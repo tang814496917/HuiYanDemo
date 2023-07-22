@@ -63,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //动作倒计时
 @property (nonatomic, assign) long actionTimeoutMs;
+
 /**
  这个设置了会使用自定义打包的UI bundle 文件，会加载里面这个名称的TXYOsAuthingViewController布局文件
  若是未找到TXYOsAuthingViewController 名称的布局文件，将会加载默认布局
@@ -141,12 +142,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat longCheckCloseEyeRightThreshold;
 // 右眼闭眼阈值 0-1 默认0.20f 值越大越严谨
 @property (nonatomic, assign) CGFloat longCheckCloseEyeLeftThreshold;
-// longCheck模式活体最大人脸阈值 0-1 默认0.9
-@property (nonatomic, assign) CGFloat longCheckBigLiveRatioThreshold;
-// longCheck模式活体最小人脸阈值 0-1 默认0.5
-@property (nonatomic, assign) CGFloat longCheckSmallLiveRatioThreshold;
 // 使用本地配置嘴部阈值，为YES会忽略后台配置，默认NO
 @property (nonatomic, assign) BOOL longCheckUseLocalCloseMouthThreshold;
+// 耗时检测支持裁剪模式，默认YES
+@property (nonatomic, assign) BOOL isNeedCropBestImageMode;
 // 使用耗时检测模糊模式
 @property (nonatomic, assign) BOOL longCheckUseBlurMode;
 // 图灵顿授权文件路径
