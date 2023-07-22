@@ -1,34 +1,29 @@
 //
-//  HomeViewController.m
+//  HYAuthApi.m
 //  HuiYanAuthDemo
 //
-//  Created by Jack T on 2023/6/13.
+//  Created by Jack T on 2023/7/12.
 //  Copyright © 2023 tencent. All rights reserved.
 //
 
-#import "HomeViewController.h"
-#import "ParamSettingViewController.h"
-#import "Masonry.h"
-#import "ViewController.h"
+#import "HYAuthApi.h"
+#import <UIKit/UIKit.h>
 #import <HuiYanSDK/HuiYanPrivateApi.h>
 #import <HuiYanSDK/PrivateLiveDataEntity.h>
 #import <HuiYanSDK/PrivateCompareResult.h>
 #import <HuiYanSDK/PrivateGetConfigResult.h>
 #import <AVFoundation/AVCaptureDevice.h>
-#import "HYConfigManager.h"
-#import "HYNetWorkService.h"
 #import "HYToastAlertView.h"
 #import "HYCircleProgressView.h"
 #import "HYAudioPlayManager.h"
-#import "HYResultVC.h"
+#import "HYConfigModel.h"
+#import "HYNetWorkService.h"
 #import "HYCommonToast.h"
-#import "AFNetworkReachabilityManager.h"
-#import "HYAuthApi.h"
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
-@interface HomeViewController ()<UITextViewDelegate,UITextFieldDelegate,HuiYanPrivateDelegate> {
-    BOOL isHasCameraPermissions;
- 
+@interface HYAuthApi()<UITextViewDelegate,UITextFieldDelegate,HuiYanPrivateDelegate>
+{
+   BOOL isHasCameraPermissions;
 }
 
 @property (nonatomic, assign) NSInteger actionType;
@@ -69,24 +64,36 @@
 
 @property (nonatomic, assign) NSInteger actionPlayCount;
 
+@property (nonatomic, strong) HYConfigModel *model;
+
+@property (nonatomic, copy) HYResultSuccCallback resultSuccCallBack;
+
+@property (nonatomic, copy) HYResultFailCallback resultFailCallBack;
+
+
 
 @end
 
-@implementation HomeViewController
+@implementation HYAuthApi
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self setupView];
-    [self checkNet];
-
-    // Do any additional setup after loading the view from its nib.
++ (void)startAuth:(HYConfigModel *)model
+         withSuccCallback:(HYResultSuccCallback)hYResultSuccCallback
+ withFailCallback:(HYResultFailCallback)hYResultFailCallback{
+    
+    HYAuthApi *authApi = [[HYAuthApi alloc]init];
+    authApi.resultSuccCallBack = hYResultSuccCallback;
+    authApi.resultFailCallBack = hYResultFailCallback;
+    authApi.model = model;
+    [authApi checkCamera];
 }
--(void)viewWillAppear:(BOOL)animated {
+-(void)checkCamera{
     NSString *mediaType = AVMediaTypeVideo;//读取媒体类型
     [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted) {
        if (granted) {
            NSLog(@"允许访问相机");
-           self->isHasCameraPermissions = YES;
+           dispatch_async(dispatch_get_main_queue(), ^{
+              [self startHuiYanAuth];
+           });
        } else {
            NSLog(@"用户拒绝访问相机~");
            [HYCommonToast showHudWithText:@"用户拒绝访问相机~"];
@@ -98,108 +105,38 @@
        }
     }];
 }
-- (void)setupView
-{
-    self.title = @"首页";
-    self.view.backgroundColor = UIColor.whiteColor;
-    NSArray *titleArray = @[@"活体检测",@"参数设置",@"1:1人脸",@"1:N检索"];
-    for (int i = 0; i<4; i++) {
-        UIButton *view = [UIButton buttonWithType:UIButtonTypeCustom];
-        view.frame = CGRectMake(16+((SCREEN_WIDTH-44)/2.f+12)*(i%2), 64+90*(i/2), (SCREEN_WIDTH-44)/2.f, 78);
-        view.layer.shadowColor = [UIColor colorWithRed:7/255.f green:40/255.f blue:85/255.f alpha:0.06].CGColor;
-        view.layer.shadowOffset = CGSizeMake(0,6);
-        view.layer.shadowOpacity = 0.6;
-        view.clipsToBounds = NO;
-        view.backgroundColor = UIColor.whiteColor;
-        [self.view addSubview:view];
-        view.tag = 100+i;
-        [view addTarget:self action:@selector(push:) forControlEvents:UIControlEventTouchUpInside];
-        
-        UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"编组%d",i+1]]];
-        imageView.frame = CGRectMake(view.bounds.size.width/2-55, 19, 40, 40);
-        imageView.userInteractionEnabled = YES;
-        [view addSubview:imageView];
-        
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(view.bounds.size.width/2, 28, view.bounds.size.width/2, 22)];
-        label.textColor = [UIColor colorWithRed:29/255.0 green:31/255.0 blue:36/255.0 alpha:1/1.0];
-        label.font = [UIFont fontWithName:@"PingFangSC" size:16];
-        label.text = titleArray[i];
-        [view addSubview:label];
-    }
-    
-    UIImageView *bottomLogo = [[UIImageView alloc]init];
-    bottomLogo.image = [UIImage imageNamed:@"home_logo"];
-    [self.view addSubview:bottomLogo];
-    
-    [bottomLogo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_offset(0);
-        make.size.mas_equalTo(CGSizeMake(130, 35));
-        make.bottom.offset(-65);
-    }];
-        
-    UILabel *bottomTitleLab = [[UILabel alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-40, SCREEN_WIDTH, 17)];
-    bottomTitleLab.text = @"腾讯优图，你身边的视觉AI专家";
-    bottomTitleLab.textColor = [UIColor colorWithRed:93/255.f green:103/255.f blue:117/255.f alpha:1];
-    bottomTitleLab.font = [UIFont systemFontOfSize:16];
-    bottomTitleLab.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:bottomTitleLab];
-    [bottomTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_offset(0);
-        make.height.offset(17);
-        make.bottom.offset(-40);
-    }];
-}
-- (void)push:(UIButton *)button{
-    switch (button.tag) {
-        case 100:
-            [HYAuthApi startAuth:[HYConfigModel new] withSuccCallback:^(NSDictionary * _Nonnull reportData) {
-                
-            } withFailCallback:^(int errCode, NSString * _Nonnull errMsg) {
-                
-            }];
-            break;
-        case 101:
-            [self.navigationController pushViewController:[ParamSettingViewController new] animated:YES];
-            break;
-        case 102:
-            
-            break;
-        case 103:
-            
-            break;
-            
-        default:
-            break;
-    }
-}
 - (void)startHuiYanAuth {
-    if (!isHasCameraPermissions) {
-        NSLog(@"用户拒绝访问相机~");
-        [HYCommonToast showHudWithText:@"用户拒绝访问相机~"];
-        return;
-    }
     [self timer];
     self.actionPlayCount = 0;
     [_timer setFireDate:[NSDate distantPast]];
     self.reportDic = @{};
     self.actionType = -1;
-    self.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
-    self.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
+    self.prepareTimeOut = self.model.prepareTimeOut;
+    self.actionTimeoutMs = self.model.actionTimeoutMs;
     self.actionVerifiedCount = 0;
     self.actionArray = @[];
-    
-    [HYConfigManager shareInstance].privateConfig.delegate = self;
-    [HYConfigManager shareInstance].privateConfig.isUseBestFaceImage = [HYConfigManager shareInstance].isUseBestFaceImage;
-    __weak  HomeViewController *weakSelf = self;
-    [HuiYanPrivateApi startGetAuthConfigData:[HYConfigManager shareInstance].privateConfig withSuccCallback:^(PrivateGetConfigResult * _Nonnull getConfigResult) {
+    HuiYanPrivateConfig *privateConfig = [[HuiYanPrivateConfig alloc]init];
+    privateConfig.authLicense = [[NSBundle mainBundle] pathForResource:@"licsence.lic" ofType:@""];
+    privateConfig.riskLicense = [[NSBundle mainBundle] pathForResource:@"sdcs_test_androids.lic" ofType:@""];
+    privateConfig.prepareTimeoutMs = 9999000;
+    privateConfig.actionTimeoutMs = 9999000;
+    privateConfig.userUIBundleName = @"UserUIBundle";
+    privateConfig.isEncrypt = YES;
+    privateConfig.showTimeOutMode = HYShowTimeOutMode_TIMEOUT_HIDDEN;
+    privateConfig.authCircleErrorColor = 0xFFFFFF;
+    privateConfig.authCircleCorrectColor = 0xFFFFFF;
+    privateConfig.delegate = self;
+    privateConfig.isUseBestFaceImage = self.model.isUseBestFaceImage;
+    __weak  HYAuthApi *weakSelf = self;
+    [HuiYanPrivateApi startGetAuthConfigData:privateConfig withSuccCallback:^(PrivateGetConfigResult * _Nonnull getConfigResult) {
         [weakSelf getLightDataWith:getConfigResult];
     } withFailCallback:^(int errCode, NSString * _Nonnull errMsg) {
 //        [HYCommonToast showHudWithText:[NSString stringWithFormat:@"SDK startGetAuthConfigData errCode:%d, errMsg:%@", errCode, errMsg]];
         NSLog(@"startGetAuthConfigData errCode:%d, errMsg:%@", errCode, errMsg);
         [weakSelf.timer invalidate];
         weakSelf.timer = nil;
-        self.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
-        self.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
+        self.prepareTimeOut = self.model.prepareTimeOut;
+        self.actionTimeoutMs = self.model.actionTimeoutMs;
     }];
 }
 - (void)getLightDataWith:(PrivateGetConfigResult *)getConfigResult {
@@ -209,11 +146,11 @@
         @"envRiskData":getConfigResult.envRiskData?:@"",
         @"requestId":[NSUUID UUID].UUIDString,
     }.mutableCopy;
-    if (![HYConfigManager shareInstance].isDefaultAction) {
-        [params setValue:[[HYConfigManager shareInstance] liveConfig] forKey:@"liveConfig"];
+    if (!self.model.isDefaultAction) {
+        [params setValue:[self liveConfig] forKey:@"liveConfig"];
     }
-    __weak  HomeViewController *weakSelf = self;
-    self.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
+    __weak  HYAuthApi *weakSelf = self;
+    self.prepareTimeOut = self.prepareTimeOut;
     [HYNetWorkService postAction:@"getLiveType" withParams:params completion:^(NSDictionary * _Nonnull result, NSError * _Nullable error) {
         if (error) {
             NSLog(@"无网络");
@@ -247,7 +184,7 @@
 
 
 - (void)startAuthWithLiveData:(PrivateLiveDataEntity *)liveDataEntity {
-    __weak  HomeViewController *weakSelf = self;
+    __weak  HYAuthApi *weakSelf = self;
     self.isFaceToScreen = YES;
     [HuiYanPrivateApi startAuthByLiveData:liveDataEntity withSuccCallback:^(PrivateCompareResult * _Nonnull compareResult, NSString * _Nonnull videoPath) {
         //extraInfo 透传
@@ -258,8 +195,8 @@
 //        [HYCommonToast showHudWithText:[NSString stringWithFormat:@"SDK errCode:%d, errMsg:%@", errCode, errMsg]];
         [_timer invalidate];
         _timer = nil;
-        self.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
-        self.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
+        self.prepareTimeOut = self.model.prepareTimeOut;
+        self.actionTimeoutMs = self.model.actionTimeoutMs;
     }];
 }
 - (void)liveCompare:(PrivateCompareResult *)compareResult{
@@ -271,7 +208,7 @@
         @"liveData":compareResult.liveData?:@"",
         @"requestId":[NSUUID UUID].UUIDString,
     };
-    __weak  HomeViewController *weakSelf = self;
+    __weak  HYAuthApi *weakSelf = self;
     [HYNetWorkService postAction:@"liveCompare" withParams:params completion:^(NSDictionary * _Nonnull result, NSError * _Nullable error) {
         if (error) {
             [HYCommonToast showHudWithText:@"网络出错"];
@@ -290,8 +227,6 @@
 }
 - (void)jumpResult:(BOOL)success{
     dispatch_async(dispatch_get_main_queue(), ^{
-        HYResultVC *vc = [[HYResultVC alloc]init];
-        vc.isSuccess = success;
         NSDictionary *infoDic = @{
             @"0":@"眨眼",
             @"1":@"眨眼",
@@ -301,20 +236,17 @@
             @"5":@"正脸",
         };
         if (success){
-            NSMutableArray *actionStrArr = [NSMutableArray array];
-            [self.actionArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([infoDic valueForKey:obj]){
-                    [actionStrArr addObject:[infoDic valueForKey:obj]];
-                }
-            }];
-            vc.actionArray = actionStrArr.copy;
+            if (self.resultSuccCallBack)
+            {
+                self.resultSuccCallBack(self.reportDic);
+            }
+        }else{
+            if (self.resultFailCallBack){
+                self.resultFailCallBack(0, @"");
+            }
         }
-        __weak  HomeViewController *weakSelf = self;
-        vc.reStartCalledBack = ^{
-            [weakSelf startHuiYanAuth];
-        };
+
         self.alertCount = 0;
-        [self.navigationController pushViewController:vc animated:YES];
     });
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.reportDic
                                                        options:0
@@ -326,7 +258,7 @@
 - (void)timeTick{
     dispatch_async(dispatch_get_main_queue(), ^{
         if ((self.actionType == -1)) {
-            if ([HYConfigManager shareInstance].isNeverTimeOut){
+            if (self.model.isNeverTimeOut){
                 self.timeOutLab.text = @"";
             }else{
                 self.timeOutLab.text = [NSString stringWithFormat:@"%lds",self.prepareTimeOut/1000];
@@ -372,14 +304,14 @@
 }
 - (void)showAlertViewWithType:(NSInteger )type{
     if ([HYToastAlertView isShowing]) return;
-    __weak HomeViewController *weakSelf = self;
+    __weak HYAuthApi *weakSelf = self;
     self.timeOutLab.hidden = YES;
     self.alertCount ++;
-   __block BOOL isNotMute = [HYConfigManager shareInstance].isNotMute;
-    if (![HYConfigManager shareInstance].isNotMute){
-        [HYConfigManager shareInstance].isNotMute = YES;
+   __block BOOL mute = self.model.mute;
+    if (!self.model.mute){
+        self.model.mute = YES;
     }
-    if (self.alertCount>[HYConfigManager shareInstance].restartCount) {
+    if (self.alertCount>self.model.restartCount) {
         if(self.cancelBtn){
             [self.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
         }
@@ -389,22 +321,12 @@
     [HYToastAlertView createImg:self.authView];
         [HYToastAlertView showAlertViewWithbuttonClickedBlock:^(NSInteger index) {
             weakSelf.timeOutLab.hidden = NO;
-            [HYConfigManager shareInstance].isNotMute = isNotMute;
+            weakSelf.model.mute = mute;
             if (index == 0) {
                 if (weakSelf.cancelBtn){
                     [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
                 }
             }else{
-//                if (weakSelf.alertCount >= [HYConfigManager shareInstance].restartCount){
-//                    if (weakSelf.cancelBtn){
-//                        [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
-//                    }
-//                }else{
-//                    if (type == 0) {
-//                        weakSelf.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
-//                    }else{
-//                        weakSelf.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
-//                    }
                     [weakSelf.cancelBtn sendActionsForControlEvents:UIControlEventTouchUpInside];
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         [weakSelf startHuiYanAuth];
@@ -415,7 +337,7 @@
 }
 - (void)playVoice:(NSString *)str{
     
-    if (![HYConfigManager shareInstance].isNotMute) return;
+    if (self.model.mute) return;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [HYAudioPlayManager audioPlayClass].playContentStr = str;
     });
@@ -423,7 +345,7 @@
 #pragma mark - HuiYanPrivateDelegate
 - (void)actionCallbackType:(HYAuthTipsEvent)actionType {
     if ([HYToastAlertView isShowing]) return;
-    NSString *tips = [[HYConfigManager shareInstance] tipsWithEvent:actionType];
+    NSString *tips = [self tipsWithEvent:actionType];
     if (tips) {
         self.tipsLab.text = [tips componentsSeparatedByString:@"/"].firstObject;
     }
@@ -541,9 +463,9 @@
         if (actionCount<=0) actionCount = 1;
         self.circleView.progress = self.actionVerifiedCount/actionCount;
         self.actionVerifiedCount ++;
-        self.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
+        self.actionTimeoutMs = self.model.actionTimeoutMs;
         if (self.actionVerifiedCount<=1) return;
-        if (![HYConfigManager shareInstance].isNotMute) return;
+        if (self.model.mute) return;
         [HYAudioPlayManager audioPlayClass].playContentStr = @"BG";
     }
 }
@@ -563,13 +485,13 @@
             [self.muteBtn addTarget:self action:@selector(mute:) forControlEvents:UIControlEventTouchUpInside];
             [self.muteBtn setImage:[[UIImage imageNamed:@"goodsVideoSound_open"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
             [self.muteBtn setImage:[[UIImage imageNamed:@"goodsVideoSound"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateSelected];
-            self.muteBtn.selected = ![HYConfigManager shareInstance].isNotMute;
+            self.muteBtn.selected = self.model.mute;
         }else if (tmpView.tag == 10003){
             self.imageView = (UIImageView *)tmpView;
             self.imageView.hidden = YES;
         }else if (tmpView.tag == 10004){
             self.timeOutLab = (UILabel *)tmpView;
-            if ([HYConfigManager shareInstance].isNeverTimeOut){
+            if (self.model.isNeverTimeOut){
                 self.timeOutLab.text = @"";
             }else{
                 self.timeOutLab.text = [NSString stringWithFormat:@"%lds",self.prepareTimeOut/1000];
@@ -579,6 +501,8 @@
             self.circleView = [[HYCircleProgressView alloc]initWithFrame:CGRectMake(0, 0, 278, 278)];
             self.circleView.progress = 0;
             [tmpView addSubview:self.circleView];
+         
+            self.faceImageView.frame = CGRectMake((SCREEN_WIDTH-198)/2.f, 167, 198, 223);
      
         }else if (tmpView.tag == 10006){
             self.tipsLab = (UILabel *)tmpView;
@@ -588,11 +512,13 @@
             imageView.image = [UIImage new];
         }
     }
+    NSSet *set = [UIApplication sharedApplication].connectedScenes;
+    UIWindowScene *windowScene = [set anyObject];
+    UIStatusBarManager *statusBarManager = windowScene.statusBarManager;
+     
     self.faceImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"face"]];
+    self.faceImageView.frame = CGRectMake((SCREEN_WIDTH-198)/2, 167+statusBarManager.statusBarFrame.size.height, 198, 223);
     [authView addSubview:self.faceImageView];
-    [self.faceImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.mas_equalTo(self.circleView);
-    }];
 }
 
 - (void)onMainViewDestroy {
@@ -606,8 +532,8 @@
     self.faceImageView = nil;
     [_timer invalidate];
     _timer = nil;
-    self.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
-    self.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
+    self.prepareTimeOut = self.model.prepareTimeOut;
+    self.actionTimeoutMs = self.model.actionTimeoutMs;
 }
 
 - (void)closeBtnClick:(UIButton *)sender {
@@ -617,7 +543,7 @@
 }
 - (void)mute:(UIButton *)button{
     button.selected = !button.selected;
-    [HYConfigManager shareInstance].isNotMute = !button.selected;
+    self.model.mute = !button.selected;
 }
 - (void)dealloc {
     [HuiYanPrivateApi release];
@@ -631,29 +557,97 @@
     }
     return _timer;
 }
-- (void)checkNet{
-    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
-    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
 
-        // 当网络状态改变时调用
-        switch (status) {
-            case AFNetworkReachabilityStatusUnknown:
-                NSLog(@"未知网络");
-                break;
-            case AFNetworkReachabilityStatusNotReachable:
-                NSLog(@"没有网络");
-                [HYCommonToast showHudWithText:@"网络出错"];
-                break;
-            case AFNetworkReachabilityStatusReachableViaWWAN:
-                NSLog(@"手机自带网络");
-                break;
-            case AFNetworkReachabilityStatusReachableViaWiFi:
-                NSLog(@"WIFI");
-                break;
+- (NSString *)liveConfig
+{
+    NSMutableDictionary *modeConfigDic = [NSMutableDictionary dictionary];
+    NSArray *randomArr = @[];
+    if (self.model.action_random){
+        randomArr = [self randomArr:self.model.action_data];
+    }else{
+        randomArr = self.model.action_data;
+    }
+    for (int i = 0; i<4; i++) {
+        NSString *actref_ux_modeStr = [NSString stringWithFormat:@"%@=%ld",@"actref_ux_mode",self.model.actref_ux_mode];
+        
+        NSString *need_action_videoStr = [NSString stringWithFormat:@"%@=%d",@"need_action_video",@(YES)];
+        
+        NSString *action_dataStr;
+        if (self.model.action_data.count <= 0){
+            action_dataStr = @"action_data=5";
+        }else{
+            
+            action_dataStr = [NSString stringWithFormat:@"%@=%@",@"action_data",[randomArr componentsJoinedByString:@","]];
         }
-    }];
-
-    //开始监控
-    [manager startMonitoring];
+       
+        
+        NSString *action_randomStr = [NSString stringWithFormat:@"%@=%d",@"action_random",self.model.action_random];
+        
+        NSString *reflect_images_shorten_strategyStr = [NSString stringWithFormat:@"%@=%d",@"reflect_images_shorten_strategy",@(YES)];
+        
+        NSString *action_video_shorten_strategyStr = [NSString stringWithFormat:@"%@=%d",@"action_video_shorten_strategy",@(YES)];
+        
+        NSString *configStr = [NSString stringWithFormat:@"%@&%@&%@&%@&%@&%@",actref_ux_modeStr,need_action_videoStr,action_dataStr,action_randomStr,reflect_images_shorten_strategyStr,action_video_shorten_strategyStr];
+        [modeConfigDic setValue:configStr forKey:[@(i+1) stringValue]];
+    }
+    NSDictionary *liveConfigDic = @{@"modeConfig":modeConfigDic};
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:liveConfigDic
+                                                       options:0
+                                                         error:nil];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData
+                                                 encoding:NSUTF8StringEncoding];
+    NSMutableString *responseString = [NSMutableString stringWithString:jsonString];
+        NSString *character = nil;
+        for (int i = 0; i < responseString.length; i ++) {
+            character = [responseString substringWithRange:NSMakeRange(i, 1)];
+            if ([character isEqualToString:@"\\"])
+                [responseString deleteCharactersInRange:NSMakeRange(i, 1)];
+        }
+    return responseString?:@"";
 }
+- (NSString *)tipsWithEvent:(HYAuthTipsEvent )event
+{
+    if (event == ACT_OPEN_MOUTH){
+        return @"请张嘴/1000";
+    }else if (event == ACT_BLINK){
+        return @"请眨眼/1001";
+    }else if (event == ACT_NOD_HEAD){
+        return @"请点点头/1002";
+    }else if (event == ACT_SHAKE_HEAD){
+        return @"请摇摇头/1003";
+    }else if (event == LIGHT_TOO_LOW){
+        return @"请保证光线充足/1004";
+    }else if (event == LIGHT_TOO_STRONG){
+        return @"请避免光线过强/1005";
+    }else if (event == NO_FACE){
+        return @"请正对屏幕/1006";
+    }else if (event == INCOMPLETE_FACE){
+        return @"请把脸移入框内/1007";
+    }else if (event == POSE_FARTHER ){
+        return @"请离远一点/1008";
+    }else if (event == POSE_CLOSER){
+        return @"请离近一点/1009";
+    }else if (event == NO_LEFT_FACE||event == NO_RIGHT_FACE||event == NO_CHINE||event == NO_MOUTH||event == NO_NOSE||event == NO_LEFT_EYE||event == NO_RIGHT_EYE){
+        return @"请保证脸部无遮挡/1010";
+    }else if (event == TOO_MANY_FACE){
+        return @"请确保框内只有一张人脸/1011";
+    }else if (event == ACT_SCREEN_SHAKING){
+        return @"请勿晃动/1012";
+    }else{
+        return nil;
+    }
+}
+- (NSArray *)randomArr:(NSArray *)arr{
+    NSMutableArray *newArr = [NSMutableArray new];
+    while (newArr.count != arr.count) {
+        //生成随机数
+        int x =arc4random() % arr.count;
+        id obj = arr[x];
+        if (![newArr containsObject:obj]) {
+            [newArr addObject:obj];
+        }
+    }
+    return newArr;
+}
+
 @end
