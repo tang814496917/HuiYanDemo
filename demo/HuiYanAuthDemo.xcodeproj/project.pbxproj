@@ -31,7 +31,7 @@
 		35102D962A6C8B7900687057 /* YtTencentSM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35102D7E2A6C8B7900687057 /* YtTencentSM.framework */; };
 		35102D972A6C8B7900687057 /* YTSm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35102D7F2A6C8B7900687057 /* YTSm.framework */; };
 		35102D992A6C8CF700687057 /* HYResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 35102D982A6C8CF600687057 /* HYResource.bundle */; };
-		35102D9B2A6C8DDD00687057 /* UserUIBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 35102D9A2A6C8DDD00687057 /* UserUIBundle.bundle */; };
+		35102DA32A6C95C300687057 /* UserUIBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 35102DA22A6C95C300687057 /* UserUIBundle.bundle */; };
 		357A30702A3863C700C5036E /* HomeViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 357A306E2A3863C700C5036E /* HomeViewController.mm */; };
 		357A30712A3863C700C5036E /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 357A306F2A3863C700C5036E /* HomeViewController.xib */; };
 		357A30742A3876CC00C5036E /* ParamSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 357A30732A3876CC00C5036E /* ParamSettingViewController.m */; };
@@ -89,7 +89,7 @@
 		35102D7E2A6C8B7900687057 /* YtTencentSM.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YtTencentSM.framework; sourceTree = "<group>"; };
 		35102D7F2A6C8B7900687057 /* YTSm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = YTSm.framework; sourceTree = "<group>"; };
 		35102D982A6C8CF600687057 /* HYResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = HYResource.bundle; sourceTree = "<group>"; };
-		35102D9A2A6C8DDD00687057 /* UserUIBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UserUIBundle.bundle; sourceTree = SOURCE_ROOT; };
+		35102DA22A6C95C300687057 /* UserUIBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = UserUIBundle.bundle; sourceTree = "<group>"; };
 		357A306D2A3863C700C5036E /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		357A306E2A3863C700C5036E /* HomeViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = HomeViewController.mm; sourceTree = "<group>"; };
 		357A306F2A3863C700C5036E /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 		35102D672A6C8B7900687057 /* SDK */ = {
 			isa = PBXGroup;
 			children = (
-				35102D9A2A6C8DDD00687057 /* UserUIBundle.bundle */,
+				35102DA22A6C95C300687057 /* UserUIBundle.bundle */,
 				35102D982A6C8CF600687057 /* HYResource.bundle */,
 				35102D682A6C8B7900687057 /* HuiYanSDK.framework */,
 				35102D692A6C8B7900687057 /* YtSDKKitSilentLiveness.framework */,
@@ -497,11 +497,11 @@
 			files = (
 				C2B7083A2510C12A00CE07D3 /* LaunchScreen.storyboard in Resources */,
 				35102D832A6C8B7900687057 /* face-tracker-v003.bundle in Resources */,
+				35102DA32A6C95C300687057 /* UserUIBundle.bundle in Resources */,
 				C2B708372510C12A00CE07D3 /* Assets.xcassets in Resources */,
 				357A30A72A39AF3500C5036E /* README.md in Resources */,
 				35ED52912A3722150094D41F /* licsence.lic in Resources */,
 				35102D992A6C8CF700687057 /* HYResource.bundle in Resources */,
-				35102D9B2A6C8DDD00687057 /* UserUIBundle.bundle in Resources */,
 				C2B708352510C12800CE07D3 /* Main.storyboard in Resources */,
 				35102D8F2A6C8B7900687057 /* HuiYanSDKUI.bundle in Resources */,
 				357A309C2A39AF3500C5036E /* LICENSE in Resources */,
