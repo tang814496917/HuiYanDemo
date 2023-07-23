@@ -87,8 +87,10 @@
                 NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                              encoding:NSUTF8StringEncoding];
                 NSLog(@"report:%@",jsonString);
+                [self.navigationController pushViewController:[ParamSettingViewController new] animated:YES];
+
             } withFailCallback:^(int errCode, NSString * _Nonnull errMsg) {
-                
+                [self.navigationController pushViewController:[ParamSettingViewController new] animated:YES];
             }];
             break;
         case 101:
