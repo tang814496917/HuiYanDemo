@@ -143,10 +143,12 @@
                 NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                              encoding:NSUTF8StringEncoding];
                 NSLog(@"report:%@",jsonString);
-                [self.navigationController pushViewController:[ParamSettingViewController new] animated:YES];
-                
+                //成功页面
+                [self.navigationController pushViewController:[HYResultVC new] animated:YES];
+
             } withFailCallback:^(int errCode, NSString * _Nonnull errMsg) {
-                [self.navigationController pushViewController:[ParamSettingViewController new] animated:YES];
+                //失败页面
+                [self.navigationController pushViewController:[HYResultVC new] animated:YES];
             }];
         }
             break;
