@@ -11,6 +11,7 @@
 #import "Masonry.h"
 #import "HYResultVC.h"
 #import <HYSDK/HYAuthApi.h>
+#import "HYConfigManager.h"
 #define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 @interface HomeViewController ()
@@ -123,20 +124,20 @@
             //            @property (nonatomic, strong) NSString *riskLicense;
             
             HYConfigModel *model = [HYConfigModel new];
-            model.actref_ux_mode = 0;
-            model.action_data = @[@1,@2,@3,@4];
-            model.action_random = NO;
-            model.mute = NO;
-            model.isUseBestFaceImage = YES;
-            model.actionTimeoutMs = 15000;
-            model.prepareTimeOut = 15000;
-            model.restartCount = 5;
-            model.isNeverTimeOut = NO;
+            model.actref_ux_mode = [HYConfigManager shareInstance].actref_ux_mode;
+            model.action_data = [HYConfigManager shareInstance].action_data;
+            model.action_random = [HYConfigManager shareInstance].action_random;
+            model.mute = ![HYConfigManager shareInstance].isNotMute;
+            model.isUseBestFaceImage = [HYConfigManager shareInstance].isUseBestFaceImage;
+            model.actionTimeoutMs = [HYConfigManager shareInstance].actionTimeoutMs;
+            model.prepareTimeOut = [HYConfigManager shareInstance].prepareTimeOut;
+            model.restartCount = [HYConfigManager shareInstance].restartCount;
+            model.isNeverTimeOut = [HYConfigManager shareInstance].isNeverTimeOut;
             model.hostUrl = @"https://biology-port.yz-intelligence.com:9978/";
-            model.isDefaultAction = YES;
+            model.isDefaultAction = [HYConfigManager shareInstance].isDefaultAction;
             model.authLicense = [[NSBundle mainBundle] pathForResource:@"licsence.lic" ofType:@""];
             model.riskLicense = [[NSBundle mainBundle] pathForResource:@"sdcs_test_androids.lic" ofType:@""];
-            [HYAuthApi startAuth:[HYConfigModel new] withSuccCallback:^(NSDictionary * _Nonnull reportData) {
+            [HYAuthApi startAuth:model withSuccCallback:^(NSDictionary * _Nonnull reportData) {
                 NSData *jsonData = [NSJSONSerialization dataWithJSONObject:reportData
                                                                    options:0
                                                                      error:nil];
@@ -144,12 +145,15 @@
                                                              encoding:NSUTF8StringEncoding];
                 NSLog(@"report:%@",jsonString);
                 //成功页面
-                [self.navigationController pushViewController:[HYResultVC new] animated:YES];
+                HYResultVC *vc = [HYResultVC new];
+                vc.isSuccess = YES;
+                [self.navigationController pushViewController:vc animated:YES];
 
             } withFailCallback:^(int errCode, NSString * _Nonnull errMsg) {
                 //失败页面
-                [self.navigationController pushViewController:[HYResultVC new] animated:YES];
-            }];
+                HYResultVC *vc = [HYResultVC new];
+                vc.isSuccess = NO;
+                [self.navigationController pushViewController:vc animated:YES];            }];
         }
             break;
         case 101:
